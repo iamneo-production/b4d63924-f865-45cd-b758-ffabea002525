@@ -1,95 +1,47 @@
 package com.examly.springapp.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class User {
-    private int id;
-    private String email;
-    private String password;
-    private String name;
-    private String mobileNumber;
-    private String userRole;
-
     @Id
     @Column(name = "id")
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    @GeneratedValue
+    private int id;
 
     @Basic
     @Column(name = "email")
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    private String email;
 
     @Basic
     @Column(name = "password")
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    private String password;
 
     @Basic
     @Column(name = "name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private String name;
 
     @Basic
     @Column(name = "mobile_number")
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
+    private String mobileNumber;
 
     @Basic
     @Column(name = "user_role")
-    public String getUserRole() {
-        return userRole;
-    }
+    private String userRole;
 
-    public void setUserRole(String userRole) {
+    public User(String email, String password, String name, String mobileNumber, String userRole) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.mobileNumber = mobileNumber;
         this.userRole = userRole;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(mobileNumber, user.mobileNumber) &&
-                Objects.equals(userRole, user.userRole);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, email, password, name, mobileNumber, userRole);
     }
 }

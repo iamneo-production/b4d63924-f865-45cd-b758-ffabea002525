@@ -1,84 +1,43 @@
 package com.examly.springapp.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Booking {
-    private int id;
-    private Date fromDate;
-    private Date toDate;
-    private int numberOfPassanger;
-    private double totalPrice;
-
     @Id
     @Column(name = "id")
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    @GeneratedValue
+    private int id;
 
     @Basic
     @Column(name = "from_date")
-    public Date getFromDate() {
-        return fromDate;
-    }
-
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
-    }
+    private Date fromDate;
 
     @Basic
     @Column(name = "to_date")
-    public Date getToDate() {
-        return toDate;
-    }
-
-    public void setToDate(Date toDate) {
-        this.toDate = toDate;
-    }
+    private Date toDate;
 
     @Basic
     @Column(name = "number_of_passanger")
-    public int getNumberOfPassanger() {
-        return numberOfPassanger;
-    }
-
-    public void setNumberOfPassanger(int numberOfPassanger) {
-        this.numberOfPassanger = numberOfPassanger;
-    }
+    private int numberOfPassanger;
 
     @Basic
     @Column(name = "total_price")
-    public double getTotalPrice() {
-        return totalPrice;
-    }
+    private double totalPrice;
 
-    public void setTotalPrice(double totalPrice) {
+    public Booking(Date fromDate, Date toDate, int numberOfPassanger, double totalPrice) {
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.numberOfPassanger = numberOfPassanger;
         this.totalPrice = totalPrice;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Booking booking = (Booking) o;
-        return id == booking.id &&
-                numberOfPassanger == booking.numberOfPassanger &&
-                Double.compare(booking.totalPrice, totalPrice) == 0 &&
-                Objects.equals(fromDate, booking.fromDate) &&
-                Objects.equals(toDate, booking.toDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fromDate, toDate, numberOfPassanger, totalPrice);
     }
 }
