@@ -34,10 +34,20 @@ public class Booking {
     @Column(name = "total_price")
     private double totalPrice;
 
-    public Booking(Date fromDate, Date toDate, int numberOfPassanger, double totalPrice) {
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id", referencedColumnName = "id", nullable = false)
+    private Vehicle vehicle;
+
+    public Booking(Date fromDate, Date toDate, int numberOfPassanger, double totalPrice, User user, Vehicle vehicle) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.numberOfPassanger = numberOfPassanger;
         this.totalPrice = totalPrice;
+        this.user = user;
+        this.vehicle = vehicle;
     }
 }

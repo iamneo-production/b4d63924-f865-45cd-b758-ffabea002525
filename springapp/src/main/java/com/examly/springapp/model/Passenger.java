@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Data
@@ -35,14 +34,14 @@ public class Passenger {
 
     @ManyToOne
     @JoinColumn(name = "booking_id", referencedColumnName = "id", nullable = false)
-    private Booking bookingByBookingId;
+    private Booking booking;
 
-    public Passenger(String firstName, String lastName, String gender, int age, Booking bookingByBookingId) {
+    public Passenger(String firstName, String lastName, String gender, int age, Booking booking) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.age = age;
-        this.bookingByBookingId = bookingByBookingId;
+        this.booking = booking;
     }
 
     public Passenger(String firstName, String lastName, String gender, int age) {
