@@ -1,4 +1,4 @@
-package com.examly.springapp.model;
+package com.examly.springapp.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Objects;
 
 @Entity
 @Data
@@ -42,12 +41,10 @@ public class Booking {
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id", nullable = false)
     private Vehicle vehicle;
 
-    public Booking(Date fromDate, Date toDate, int numberOfPassanger, double totalPrice, User user, Vehicle vehicle) {
+    public Booking(Date fromDate, Date toDate, int numberOfPassanger, double totalPrice) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.numberOfPassanger = numberOfPassanger;
         this.totalPrice = totalPrice;
-        this.user = user;
-        this.vehicle = vehicle;
     }
 }

@@ -1,4 +1,4 @@
-package com.examly.springapp.model;
+package com.examly.springapp.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,14 +35,6 @@ public class Passenger {
     @ManyToOne
     @JoinColumn(name = "booking_id", referencedColumnName = "id", nullable = false)
     private Booking booking;
-
-    public Passenger(String firstName, String lastName, String gender, int age, Booking booking) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.age = age;
-        this.booking = booking;
-    }
 
     public Passenger(String firstName, String lastName, String gender, int age) {
         this.firstName = firstName;
