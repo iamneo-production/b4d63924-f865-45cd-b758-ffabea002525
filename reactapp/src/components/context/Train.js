@@ -1,4 +1,4 @@
-export const traindata=[
+export default[
     {
         id:"grid1",
         trainName:"chennai Exp.",
