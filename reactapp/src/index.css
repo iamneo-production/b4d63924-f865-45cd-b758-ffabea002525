@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding:0;
   font-family: 'Poppins', sans-serif;
-  
+  background-color: #adb5bd;
 }
 
 
@@ -17,6 +17,7 @@ body {
 }
 
 
-.bg-user-dashboard{
+/* .bg-user-dashboard{
   background-color: #adb5bd;
-}
+} */
+

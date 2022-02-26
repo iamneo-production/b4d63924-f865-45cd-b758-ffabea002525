@@ -1,4 +1,5 @@
 import React,{useState,useContext} from 'react';
+import {Link} from 'react-router-dom'
 import { RailContext } from './context/context';
 // import '../index.css';
 const Signup = () => {
@@ -35,7 +36,7 @@ const Signup = () => {
                 </div>
                 <div className='d-flex flex-column align-items-center'>
                 <button type="submit" id="submitButton" className="btn nav-bg text-white d-block m-2">Submit</button>
-                <span id="signinLink" ><p className="text-muted me-1 d-inline-block">Already a user?</p><a>Login</a></span>
+                <span id="signinLink" ><p className="text-muted me-1 d-inline-block">Already a user?</p><Link to="/">Login</Link></span>
                 </div>
       </form>
       </div>
