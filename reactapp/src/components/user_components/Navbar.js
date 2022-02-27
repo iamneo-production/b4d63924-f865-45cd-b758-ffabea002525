@@ -1,5 +1,6 @@
 import React from 'react';
- import '../../index.css';
+import {Link} from 'react-router-dom'
+import '../../index.css';
 
 const Navbar = () => {
   return <nav className="navbar navbar-expand-lg navbar-dark nav-bg">
@@ -11,16 +12,16 @@ const Navbar = () => {
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav mx-auto">
         <li className="nav-item">
-          <a className="nav-link active" id="homeButton" href="#">Home</a>
+          <Link className="nav-link active" id="homeButton" to="/user/dashboard">Home</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#" id="DashBoardButton">Dashboard</a>
+          <Link className="nav-link" to="/user/dashboard" id="DashBoardButton">Dashboard</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" id="myBookingButton" href="#">MyBooking</a>
+          <Link className="nav-link" to="" id="myBookingButton" href="#">MyBooking</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" id="logout">Logout</a>
+          <Link className="nav-link" to="" id="logout">Logout</Link>
         </li>
       </ul>
     </div>

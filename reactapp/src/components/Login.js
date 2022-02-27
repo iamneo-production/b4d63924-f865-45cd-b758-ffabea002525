@@ -1,4 +1,5 @@
 import React,{useState,useContext} from 'react';
+import {Link} from 'react-router-dom'
 import { RailContext } from './context/context';
 // import './index.css';
 const Login = () => {
@@ -18,7 +19,7 @@ const Login = () => {
                 <input id="password" value={login.loginPassword} name="loginPassword" onChange={(e)=>loginHandle(e)} className="form-control" type="password" placeholder="Enter Password" aria-label="default input example"/>
             </div>
             <button type="submit" id="loginButton" className="btn nav-bg text-white  m-1">Login</button>
-            <span id="signupLink"><p className="text-muted me-1 d-inline-block">New User/admin?</p><a>Sign Up</a></span>
+            <span id="signupLink"><p className="text-muted me-1 d-inline-block">New User/admin?</p><Link to="/signup">Sign Up</Link></span>
             </form>
             </div>
             

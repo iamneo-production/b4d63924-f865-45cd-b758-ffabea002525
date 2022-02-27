@@ -16,7 +16,7 @@ const Dashboard = () => {
     <div className='row'>
        {trainData.map((trainItem)=>{
            
-           return <Traincard key={trainItem.id} trainItem={trainItem} />
+           return <Traincard key={trainItem.id} trainItem={trainItem}  />
        })}
     </div>
   </div>
