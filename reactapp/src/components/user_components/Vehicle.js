@@ -6,7 +6,7 @@ import Passanger from './Passanger';
 
 
 const Vehicle = () => {
-    const{currentId,personRows,vehicleData,person,handlePerson}=useContext(RailContext)
+    const{currentId,vehicleData,person,handlePerson,passangerDetails}=useContext(RailContext)
     
     console.log(vehicleData);
     if(vehicleData===undefined||vehicleData===null){
@@ -52,10 +52,22 @@ const Vehicle = () => {
                 <div class="card-header text-center text-success">
                     Add Passanger Details
                 </div>
-                {
-                    personRows.map((data)=>data)
-                }
+                <Passanger/>
             </div>
+          </div>
+          <div className='container my-5 '>
+              <div className='card'>
+                
+                {passangerDetails.map((data,index)=>{
+                    return <div className='d-flex justify-content-between px-3' key={index}>
+                            <p>{data.firstName}</p>
+                            <p>{data.lastName}</p>
+                            <p>{data.age}</p>
+                            <p>{data.gender}</p>
+                    </div>
+                })}
+                </div>
+              
           </div>
           </div>
       </>
