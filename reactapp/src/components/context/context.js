@@ -16,7 +16,7 @@ const RailProvider=({children})=>{
     const[loading,setLoading]=useState(true)
     const[vehicleData,setVehicleData]=useState(null);
     const[person,setPerson]=useState(0);
-    const[personRows,setPersonRows]=useState([]);
+    
     const[signup,setSignup]=useState({
         userType:"",
         userSignupemail:"",
@@ -27,6 +27,8 @@ const RailProvider=({children})=>{
 
 
     })
+    const[singlePassanger,setSinglePassanger]=useState({firstName:"",lastName:"",age:"",gender:""});
+    const[passangerDetails,setPassangerDetails]=useState([]);
 
    
 
@@ -36,35 +38,22 @@ const RailProvider=({children})=>{
         setLogin({...login,[name]:val});
     }
 
-    const handleRowsPerson=()=>{
-        
-        console.log("hello")
-        if(person==0){
-            setPersonRows([]);
-            
-        }else if(person==1){
-            setPersonRows([<Passanger key={1} />]);
-            
-        }else if(person==2){
-            setPersonRows([<Passanger key={1} />,<Passanger key={2} />]);
-            
-        }else if(person==3){
-            setPersonRows([<Passanger key={1} />,<Passanger key={2} />,<Passanger key={3} />]);
-            
-        }else if(person==4){
-            setPersonRows([<Passanger key={1} />,<Passanger key={2} />,<Passanger key={3} />,<Passanger key={4} />]);
-           
-        }else{
-            setPersonRows([<Passanger key={1} />,<Passanger key={2} />,<Passanger key={3} />,<Passanger key={4} />,<Passanger key={5} />])
-            
-        }
-        
-    }
-
+    
     const signupHandle=(e)=>{
         const name=e.target.name;
         const val=e.target.value
         setSignup({...signup,[name]:val});
+    }
+
+    const SinglePassangerDetail=(e)=>{
+        const name=e.target.name;
+        const val=e.target.value;
+        setSinglePassanger({...singlePassanger,[name]:val})
+    }
+
+    const MultiplePassangerDetail=()=>{
+        setPassangerDetails([...passangerDetails, singlePassanger]);
+        setSinglePassanger({firstName:"",lastName:"",age:"",gender:""});
     }
 
     const TrainPassangerHandle=(id)=>{
@@ -92,12 +81,10 @@ const RailProvider=({children})=>{
         setPerson(0);
     },[currentId])
 
-    useEffect(()=>{
-        handleRowsPerson();
-    },[person])
+    
 
 
-    return <RailContext.Provider value={{trainData,vehicleData,login,currentId,person,personRows,handleRowsPerson,handlePerson,loginHandle,signup,signupHandle,TrainPassangerHandle}}>
+    return <RailContext.Provider value={{trainData,vehicleData,login,currentId,person,singlePassanger,passangerDetails,MultiplePassangerDetail,handlePerson,loginHandle,signup,signupHandle,TrainPassangerHandle,SinglePassangerDetail}}>
         {children}
     </RailContext.Provider>
 }
