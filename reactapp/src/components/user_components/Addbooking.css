@@ -1,0 +1,23 @@
+input {
+  width: 80%;
+}
+
+.space {
+  margin-left: 8%;
+}
+
+.editIcon {
+  position: absolute;
+  left: 72%;
+  margin-top: 3%;
+}
+
+#cancelBookingButton {
+  align-items: center;
+  justify-content: center;
+  right: 30%;
+}
+
+.cancelbtn {
+  margin-left: 43%;
+}
