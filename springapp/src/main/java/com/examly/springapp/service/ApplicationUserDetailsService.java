@@ -4,6 +4,8 @@ import com.examly.springapp.model.LoginModel;
 import com.examly.springapp.entity.User;
 import com.examly.springapp.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,6 +42,12 @@ public class ApplicationUserDetailsService implements UserDetailsService {
     private boolean validUserRole(String userRole){
         if (userRole == null) return false;
         return userRole.equalsIgnoreCase("USER") ||  userRole.equalsIgnoreCase("ADMIN");
+    }
+
+    public User getCurrentLoggedInUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        return userRepository.findByEmail(userName).orElseThrow(() -> new IllegalStateException("User not found!!"));
     }
 
 }
