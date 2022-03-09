@@ -5,6 +5,7 @@ import Signup from './components/Signup';
 import Dashboard from './components/user_components/Dashboard';
 import Error from './components/Error';
 import Vehicle from './components/user_components/Vehicle';
+import AddBooking from './components/user_components/AddBooking';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
         </Route>
         <Route path="/user/vehicles">
           <Vehicle/>
+        </Route>
+        <Route path="/user/booking">
+          <AddBooking/>
         </Route>
         <Route path="*">
           <Error/>
