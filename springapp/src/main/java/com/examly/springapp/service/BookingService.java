@@ -2,9 +2,12 @@ package com.examly.springapp.service;
 
 import com.examly.springapp.entity.Booking;
 import com.examly.springapp.entity.Passenger;
+import com.examly.springapp.entity.User;
 import com.examly.springapp.entity.Vehicle;
 import com.examly.springapp.repository.BookingRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,11 +20,11 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final PassengerService passengerService;
     private final VehicleService vehicleService;
+    private final ApplicationUserDetailsService applicationUserDetailsService;
 
     public List<Booking> getAllBooking() {
-        //TODO: first we have to fetch current logged in user id then we have to fetch all booking of that user
-        int currentUserId = 1;
-        return bookingRepository.findByUserId(currentUserId);
+        User currentLoggedInUser = applicationUserDetailsService.getCurrentLoggedInUser();
+        return bookingRepository.findByUserId(currentLoggedInUser.getId());
     }
 
     @Transactional
@@ -86,6 +89,9 @@ public class BookingService {
 
         return booking;
     }
+
+
+
 
 
 }
