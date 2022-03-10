@@ -9,6 +9,16 @@ const RailProvider = ({ children }) => {
     loginEmail: "",
     loginPassword: "",
   });
+  const [user, setUser] = useState({
+    userType: "admin",
+    email: "",
+    firstName: "",
+    lastName: "",
+    mobilenumber: "",
+    age: "",
+    gender: "",
+    loggedIn: true,
+  });
   const [currentId, setCurrentId] = useState("");
   const [loading, setLoading] = useState(true);
   const [vehicleData, setVehicleData] = useState(null);
@@ -91,6 +101,8 @@ const RailProvider = ({ children }) => {
         signupHandle,
         TrainPassangerHandle,
         SinglePassangerDetail,
+        user,
+        setUser,
       }}
     >
       {children}

@@ -1,12 +1,8 @@
 import "./App.css";
-import Home from "./components";
+import Navigation from "./Navigation/index";
 
 function App() {
-  return (
-    <>
-      <Home />
-    </>
-  );
+  return <Navigation />;
 }
 
 export default App;
