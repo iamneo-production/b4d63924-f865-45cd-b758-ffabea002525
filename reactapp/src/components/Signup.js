@@ -103,7 +103,7 @@ const Signup = () => {
                 <p className="text-muted me-1 d-inline-block">
                   Already a user?
                 </p>
-                <Link to="/">Login</Link>
+                <Link to="/login">Login</Link>
               </span>
             </div>
           </form>
