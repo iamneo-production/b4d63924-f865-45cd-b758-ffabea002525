@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
 import Vehicle from "../components/user_components/Vehicle";
+import AddBooking from "../components/user_components/AddBooking"
 import AdminDashboard from "../components/admin_components/Dashboard";
 import UserDashboard from "../components/user_components/Dashboard";
 import AddVehicle from "../components/admin_components/AddVehicle";
@@ -22,6 +23,7 @@ const Navigation = () => {
       <Route path="/user" element={<ProtectedRoutes />}>
         <Route index path="dashboard" element={<UserDashboard />} />
         <Route path="vehicles" element={<Vehicle />} />
+        <Route path="booking" element={<AddBooking />} />
       </Route>
       <Route path="*" element={<Error />} />
     </Routes>

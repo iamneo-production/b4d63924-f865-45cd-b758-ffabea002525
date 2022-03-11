@@ -43,7 +43,7 @@ const Navbar = () => {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                to="/user/vehicles"
+                to="/user/booking"
                 id="myBookingButton"
                 href="#"
               >
