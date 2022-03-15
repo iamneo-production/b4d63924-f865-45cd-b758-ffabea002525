@@ -1,8 +1,10 @@
 package com.examly.springapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -32,6 +34,7 @@ public class Passenger {
     @Column(name = "age")
     private int age;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "booking_id", referencedColumnName = "id", nullable = false)
     private Booking booking;

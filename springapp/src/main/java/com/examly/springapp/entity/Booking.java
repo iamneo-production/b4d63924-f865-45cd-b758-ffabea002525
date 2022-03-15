@@ -1,8 +1,6 @@
 package com.examly.springapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -12,6 +10,8 @@ import java.util.Set;
 
 @Entity
 @Data
+@ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 public class Booking {
@@ -30,28 +30,34 @@ public class Booking {
 
     @Basic
     @Column(name = "number_of_passanger")
-    private int numberOfPassenger;
+    private int numberOfPassanger;
 
     @Basic
     @Column(name = "total_price")
     private double totalPrice;
 
-    @ManyToOne(cascade=CascadeType.REMOVE)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
-    @ManyToOne(cascade=CascadeType.REMOVE)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id", nullable = false)
     private Vehicle vehicle;
 
-    @Basic
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy="booking", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Passenger> passengers = new HashSet<Passenger>();
 
-    public Booking(Date fromDate, Date toDate, int numberOfPassenger, double totalPrice) {
+
+    public Booking(Date fromDate, Date toDate, int numberOfPassanger, double totalPrice) {
         this.fromDate = fromDate;
         this.toDate = toDate;
-        this.numberOfPassenger = numberOfPassenger;
+        this.numberOfPassanger = numberOfPassanger;
         this.totalPrice = totalPrice;
     }
 }
