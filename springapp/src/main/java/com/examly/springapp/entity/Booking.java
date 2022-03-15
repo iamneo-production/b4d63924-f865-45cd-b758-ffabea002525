@@ -1,14 +1,17 @@
 package com.examly.springapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
+@ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 public class Booking {
@@ -33,13 +36,23 @@ public class Booking {
     @Column(name = "total_price")
     private double totalPrice;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id", nullable = false)
     private Vehicle vehicle;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy="booking", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Passenger> passengers = new HashSet<Passenger>();
+
 
     public Booking(Date fromDate, Date toDate, int numberOfPassanger, double totalPrice) {
         this.fromDate = fromDate;

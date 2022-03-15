@@ -9,12 +9,4 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class PassengerService {
     private final PassengerRepository passengerRepository;
-
-    public void deleteAllPassengerByBookingId(int bookingId){
-        passengerRepository.deleteAllByBookingId(bookingId);
-    }
-
-    public Passenger save(Passenger passenger) {
-        return passengerRepository.save(passenger);
-    }
 }
