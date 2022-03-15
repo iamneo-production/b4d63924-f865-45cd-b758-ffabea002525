@@ -1,75 +1,33 @@
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch,
-  Redirect,
-} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import Login from "../components/Login";
+import Signup from "../components/Signup";
+import Vehicle from "../components/user_components/Vehicle";
+import AddBooking from "../components/user_components/AddBooking"
 import AdminDashboard from "../components/admin_components/Dashboard";
 import UserDashboard from "../components/user_components/Dashboard";
 import AddVehicle from "../components/admin_components/AddVehicle";
 import EditVehicle from "../components/admin_components/EditVehicle";
-import Login from "../components/Login";
-import SignUp from "../components/Signup";
+import ProtectedRoutes from "./ProtectedRoute";
+import Error from "../components/Error";
 
-export default function Navigation(props) {
-  const { currentUser } = props;
-  console.log("currentUser");
-  console.log(currentUser);
-  console.log("currentUser");
-  
-  const loginHandler = () => {
-    return <Login currentUser={currentUser} />;
-  };
-
-  if (currentUser === "Admin") {
-    console.log("Admin");
-    return (
-      <Router>
-        <Route exact path="/">
-          <Redirect to="/login" />
-        </Route>
-        <Route path={"/login"} component={loginHandler} />
-        <Route path={"/signup"} component={SignUp} />
-        <Route
-          path="/admin"
-          render={({ match: { url } }) => (
-            <>
-              <Route exact path="/">
-                <Redirect to="/login" />
-              </Route>
-              <Route
-                path={`${url}/Dashboard`}
-                component={AdminDashboard}
-                exact
-              />
-              <Route path={`${url}/user`} component={UserDashboard} />
-              <Route path={`${url}/addVehicle`} component={AddVehicle} />
-            </>
-          )}
-        />
-      </Router>
-    );
-  }
-
+const Navigation = () => {
   return (
-    <Router>
-      <Route exact path="/">
-        <Redirect to="/login" />
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/admin" element={<ProtectedRoutes />}>
+        <Route index path="dashboard" element={<AdminDashboard />} />
+        <Route path="addvehicle" element={<AddVehicle />} />
+        <Route path="editvehicle" element={<EditVehicle />} />
       </Route>
-      <Route path={"/login"} component={loginHandler} />
-      <Route path={"/signup"} component={SignUp} />
-      <Route
-        path="/user"
-        render={({ match: { url } }) => (
-          <>
-            <Route path={`${url}/dashboard`} component={UserDashboard} exact />
-            <Route path={`${url}/addvehicle`} component={AddVehicle} />
-          </>
-        )}
-      />
-    </Router>
+      <Route path="/user" element={<ProtectedRoutes />}>
+        <Route index path="dashboard" element={<UserDashboard />} />
+        <Route path="vehicles" element={<Vehicle />} />
+        <Route path="booking" element={<AddBooking />} />
+      </Route>
+      <Route path="*" element={<Error />} />
+    </Routes>
   );
-}
+};
+
+export default Navigation;

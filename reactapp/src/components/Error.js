@@ -6,7 +6,7 @@ const Error = () => {
   return (
     <div className="d-flex flex-column justify-content-center align-items-center mt-5">
       <h1>
-        Oops Error <BiErrorAlt className="text-danger" />
+        Oops Page Not Found <BiErrorAlt className="text-danger" />
       </h1>
       <Link to="/user/dashboard" className="btn nav-bg text-white">
         Go Back
