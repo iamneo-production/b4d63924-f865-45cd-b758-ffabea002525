@@ -40,7 +40,7 @@ export default [
     img: "https://images.newindianexpress.com/uploads/user/imagelibrary/2021/4/12/w900X450/Train.jpg?w=400&dpr=2.6",
   },
   {
-    id: "grid3",
+    id: "grid6",
     trainName: "Janshatabdi Exp.",
     place: "Howrah to Patna",
     time: "12pm",
