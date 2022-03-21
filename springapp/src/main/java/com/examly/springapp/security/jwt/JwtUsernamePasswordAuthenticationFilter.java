@@ -1,9 +1,12 @@
 package com.examly.springapp.security.jwt;
 
+import com.examly.springapp.entity.User;
 import com.examly.springapp.model.LoginModel;
+import com.examly.springapp.model.UserDetailsResponseModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -50,5 +53,16 @@ public class JwtUsernamePasswordAuthenticationFilter extends UsernamePasswordAut
                 .compact();
 
         response.addHeader("Authorization", "Bearer "+token);
+        User userObject = (User) authResult.getPrincipal();
+        UserDetailsResponseModel userDetailsResponseModel = new UserDetailsResponseModel(
+                userObject.getId(),
+                userObject.getEmail(),
+                userObject.getName(),
+                userObject.getMobileNumber(),
+                userObject.getUserRole()
+        );
+        response.setHeader(HttpHeaders.CONTENT_TYPE,"application/json");
+        response.getOutputStream().print(new ObjectMapper().writeValueAsString(userDetailsResponseModel));
+        response.flushBuffer();
     }
 }
