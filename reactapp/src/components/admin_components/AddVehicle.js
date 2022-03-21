@@ -1,9 +1,6 @@
 import React from "react";
 import Navbar from "./Navbar";
 import "../../index.css";
-// import Traincard from "./Traincard";
-// import Searchcomponent from "./Searchcomponent";
-// import { traindata } from "./Train";
 
 const AddVehicle = () => {
   return (
