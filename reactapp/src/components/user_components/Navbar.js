@@ -6,9 +6,9 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark nav-bg">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/user/dashboard">
           T-rails
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
