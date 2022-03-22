@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BiErrorAlt } from "react-icons/bi";
 import "./../index.css";
+
 const Error = () => {
   return (
     <div className="d-flex flex-column justify-content-center align-items-center mt-5">

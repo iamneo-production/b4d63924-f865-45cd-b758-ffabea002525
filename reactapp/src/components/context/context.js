@@ -17,7 +17,8 @@ const RailProvider = ({ children }) => {
     mobilenumber: "",
     age: "",
     gender: "",
-    loggedIn: true,
+    loggedIn: false,
+    token: "",
   });
   const [currentId, setCurrentId] = useState("");
   const [loading, setLoading] = useState(true);
