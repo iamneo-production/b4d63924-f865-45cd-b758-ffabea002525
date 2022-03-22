@@ -7,9 +7,9 @@ const Navbar = () => {
     <>
       <nav className="navbar navbar-expand-lg navbar-dark nav-bg">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <Link className="navbar-brand" to="/admin/dashboard">
             T-rails
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -42,7 +42,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/login" className="nav-link" id="logout">
+                <Link to="/logout" className="nav-link" id="logout">
                   Logout
                 </Link>
               </li>
