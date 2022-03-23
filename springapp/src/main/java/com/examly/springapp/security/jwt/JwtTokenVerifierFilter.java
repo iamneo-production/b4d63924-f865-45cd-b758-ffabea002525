@@ -4,8 +4,6 @@ import com.google.common.base.Strings;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,6 +21,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class JwtTokenVerifierFilter extends OncePerRequestFilter {
+    private final JwtUtil jwtUtil;
+    public JwtTokenVerifierFilter(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorizationHeader = request.getHeader("Authorization");
@@ -33,16 +36,8 @@ public class JwtTokenVerifierFilter extends OncePerRequestFilter {
 
         try{
             String token = authorizationHeader.replace("Bearer ","");
-            String key = "securekeysecurekeysecurekeysecurekeysecurekeysecurekeysecurekeysecurekey";
-
-            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(Keys.hmacShaKeyFor(key.getBytes()))
-                    .parseClaimsJws(token);
-
-            Claims body = claimsJws.getBody();
-            String username = body.getSubject();
-            var authorities = (List<Map<String, String>>) body.get("authorities");
-            Set<SimpleGrantedAuthority> simpleGrantedAuthorities = authorities.stream().map(m -> new SimpleGrantedAuthority(m.get("authority"))).collect(Collectors.toSet());
-
+            String username = jwtUtil.extractUsername(token);
+            Set<SimpleGrantedAuthority> simpleGrantedAuthorities = jwtUtil.extractSimpleGrantedAuthority(token);
             Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, simpleGrantedAuthorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }catch (JwtException e){

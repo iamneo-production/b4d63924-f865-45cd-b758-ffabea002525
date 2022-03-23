@@ -2,6 +2,7 @@ package com.examly.springapp.security;
 
 import com.examly.springapp.security.jwt.JwtTokenVerifierFilter;
 import com.examly.springapp.security.jwt.JwtUsernamePasswordAuthenticationFilter;
+import com.examly.springapp.security.jwt.JwtUtil;
 import com.examly.springapp.service.ApplicationUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,7 @@ import static com.examly.springapp.security.utils.ApplicationUserRole.USER;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
     private final ApplicationUserDetailsService applicationUserDetailsService;
+    private final JwtUtil jwtUtil;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -36,8 +38,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JwtUsernamePasswordAuthenticationFilter(authenticationManager()))
-                .addFilterAfter(new JwtTokenVerifierFilter(),JwtUsernamePasswordAuthenticationFilter.class)
+                .addFilter(new JwtUsernamePasswordAuthenticationFilter(authenticationManager(),jwtUtil))
+                .addFilterAfter(new JwtTokenVerifierFilter(jwtUtil),JwtUsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/signup").permitAll()
                 .antMatchers("/user/**").hasRole(USER.name())
