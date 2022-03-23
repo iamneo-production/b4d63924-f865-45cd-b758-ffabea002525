@@ -22,53 +22,46 @@ public class VehicleService {
     }
     
     public void addVehicle(Vehicle vehicle) {
-    	String toCapitalize=capitalize(vehicle.getName());
-    	vehicle.setName(toCapitalize);
-    	boolean vehicleIsPresent=vehicleRepository.findByName(vehicle.getName()).isPresent();
+    	vehicle.setName(capitalize(vehicle.getName()));
+    	boolean vehicleIsPresent = vehicleRepository.findByName(vehicle.getName()).isPresent();
     	if(vehicleIsPresent)
     		throw new IllegalStateException("The vehicle "+vehicle.getName() +" already exists");
     	vehicleRepository.save(vehicle);
     }
     
     public Vehicle deleteVehicle(int vehicleId) {
-    	boolean vehicleIsPresent=vehicleRepository.findById(vehicleId).isPresent();
-    	Vehicle deletedVehicle;
-    	if(!vehicleIsPresent)
+    	Vehicle vehicle = vehicleRepository.findById(vehicleId).orElse(null);
+    	if(vehicle == null)
     		throw new IllegalStateException("The vehicleId "+vehicleId +" does not exist");
-    	deletedVehicle = vehicleRepository.getOne(vehicleId);
-    	vehicleRepository.deleteById(vehicleId);
-    	return deletedVehicle;
+    	vehicleRepository.delete(vehicle);
+    	return vehicle;
     }
     
-    public Vehicle editVehicle(int vehicleId,Vehicle vehicle) {
-    	boolean vehicleIsPresent=vehicleRepository.findById(vehicleId).isPresent();
-    	if(!vehicleIsPresent)
+    public Vehicle editVehicle(int vehicleId,Vehicle newVehicle) {
+    	Vehicle oldVehicle = vehicleRepository.findById(vehicleId).orElse(null);
+    	if(oldVehicle == null)
     		throw new IllegalStateException("The vehicleId "+vehicleId +" does not exist");
     	
-    	Vehicle updatedVehicle=vehicleRepository.getOne(vehicleId);
-    	String toCapitalize=capitalize(vehicle.getName());
-    	vehicle.setName(toCapitalize);
+    	oldVehicle.setName(capitalize(newVehicle.getName()));
+    	oldVehicle.setImageUrl(newVehicle.getImageUrl());
+    	oldVehicle.setAddress(newVehicle.getAddress());
+    	oldVehicle.setDescription(newVehicle.getDescription());
+    	oldVehicle.setAvailableStatus(newVehicle.getAvailableStatus());
+    	oldVehicle.setTime(newVehicle.getTime());
+    	oldVehicle.setCapacity(newVehicle.getCapacity());
+    	oldVehicle.setTicketPrice(newVehicle.getTicketPrice());
     	
-    	updatedVehicle.setName(vehicle.getName());
-    	updatedVehicle.setImageUrl(vehicle.getImageUrl());
-    	updatedVehicle.setAddress(vehicle.getAddress());
-    	updatedVehicle.setDescription(vehicle.getDescription());
-    	updatedVehicle.setAvailableStatus(vehicle.getAvailableStatus());
-    	updatedVehicle.setTime(vehicle.getTime());
-    	updatedVehicle.setCapacity(vehicle.getCapacity());
-    	updatedVehicle.setTicketPrice(vehicle.getTicketPrice());
-    	
-    	vehicleRepository.save(updatedVehicle);
-    	return updatedVehicle;
+    	return vehicleRepository.save(oldVehicle);
     }
-    private String capitalize(String name) {
-    	name=name.toLowerCase().trim();
-    	char ch[]=name.toCharArray();
-    	ch[0]=(char)(ch[0]-32);
-    	for(int i=0;i<ch.length-1;i++) 
-    		if(ch[i]==' ') 
-    			ch[i+1]=(char)(ch[i+1]-32);
-    	return String.valueOf(ch);
+
+    private String capitalize(String string) {
+    	string=string.toLowerCase().trim();
+    	char parts[]=string.toCharArray();
+    	parts[0]=(char)(parts[0]-32);
+    	for(int i=0;i<parts.length-1;i++)
+    		if(parts[i]==' ')
+    			parts[i+1]=(char)(parts[i+1]-32);
+    	return String.valueOf(parts);
     }
 
     
