@@ -3,6 +3,8 @@ import { RailContext } from "./context/context";
 import { signupApi } from "../api/api";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -44,12 +46,23 @@ const Signup = () => {
     const response = await signupApi(obj);
     console.log(response);
     if (!response) {
+      toast("SignUp failed!", {
+        type: "error",
+        theme: "colored",
+        position: "bottom-center",
+      });
       clearTexts();
       return;
     }
 
     if (response.data === "Admin added" || response.data === "User added") {
-      navigate("/login");
+      toast("SignUp success!", {
+        type: "success",
+        theme: "dark",
+      });
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
     } else {
       console.log(response.data);
     }
@@ -64,6 +77,7 @@ const Signup = () => {
           className="container d-flex justify-content-center align-items-center"
           style={{ height: "30rem" }}
         >
+          <ToastContainer />
           <div className="card " style={{ width: "28rem" }}>
             <h5 className="card-header nav-bg text-white">Register</h5>
             <div className="card-body">

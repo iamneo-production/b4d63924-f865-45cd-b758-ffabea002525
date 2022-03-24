@@ -3,6 +3,8 @@ import { RailContext } from "./context/context";
 import { Link, useNavigate } from "react-router-dom";
 import { loginApi } from "../api/api";
 import Loading from "./Loading";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const { user, setUser } = useContext(RailContext);
@@ -27,28 +29,41 @@ const Login = () => {
     const response = await loginApi(obj);
     console.log(response);
 
-    const token = response.headers.authorization.replace("Bearer ", "");
+    if (response) {
+      const token = response.headers.authorization.replace("Bearer ", "");
 
-    const user = {
-      userType: response.data.userRole,
-      email: response.data.email,
-      firstName: response.data.name,
-      lastName: "",
-      mobilenumber: response.data.mobileNumber,
-      age: "",
-      gender: "",
-      loggedIn: true,
-      token: token,
-    };
+      const user = {
+        userType: response.data.userRole,
+        email: response.data.email,
+        firstName: response.data.name,
+        lastName: "",
+        mobilenumber: response.data.mobileNumber,
+        age: "",
+        gender: "",
+        loggedIn: true,
+        token: token,
+      };
 
-    await setUser(user);
-    window.localStorage.removeItem("user");
-    window.localStorage.setItem("user", JSON.stringify(user));
+      await setUser(user);
+      window.localStorage.removeItem("user");
+      window.localStorage.setItem("user", JSON.stringify(user));
 
-    if (response.data.userRole.toLowerCase() === "admin") {
-      navigate("/admin/dashboard");
+      toast("SignUp success!", {
+        type: "success",
+        theme: "dark",
+      });
+
+      if (response.data.userRole.toLowerCase() === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/user/dashboard");
+      }
     } else {
-      navigate("/user/dashboard");
+      toast("Invalid Username or Password", {
+        type: "error",
+        theme: "colored",
+        position: "bottom-center",
+      });
     }
   };
 
@@ -61,6 +76,7 @@ const Login = () => {
           className="container d-flex justify-content-center align-items-center"
           style={{ height: "30rem" }}
         >
+          <ToastContainer />
           <div className="card " style={{ width: "28rem" }}>
             <h5 className="card-header nav-bg text-white">Login</h5>
             <div className="card-body">

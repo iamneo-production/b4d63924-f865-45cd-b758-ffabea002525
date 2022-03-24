@@ -21,26 +21,26 @@ const AddBooking = () => {
         <div>
           <Navbar />
           <div
-            class="container p-4 m-5 bg-light bg-darken-lg text-dark 
+            className="container p-4 m-5 bg-light bg-darken-lg text-dark 
         text-dark font-weight-bold border border-dark rounded mx-auto"
             id="MyBookingBody"
           >
-            <h4 class="text-center bg-dark text-white mt-0 mb-5 p-3">
+            <h4 className="text-center bg-dark text-white mt-0 mb-5 p-3">
               Booking Details
             </h4>
 
             <div className="space">
-              <div class="row">
-                <div class="col">
+              <div className="row">
+                <div className="col">
                   <input
-                    class="rounded font-italic text-white border border-dark p-2"
+                    className="rounded font-italic text-white border border-dark p-2"
                     type="text"
                     placeholder="Train Name"
                   ></input>
                 </div>
-                <div class="col">
+                <div className="col">
                   <input
-                    class="rounded font-italic text-dark border 
+                    className="rounded font-italic text-dark border 
                     border-dark p-2 mb-4"
                     type="text"
                     placeholder="Address"
@@ -48,19 +48,19 @@ const AddBooking = () => {
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col">
+              <div className="row">
+                <div className="col">
                   <input
-                    class="rounded font-italic text-dark border 
+                    className="rounded font-italic text-dark border 
                     border-dark p-2"
                     id="editBookingDate"
                     type="date"
                     placeholder="Edit From Date"
                   ></input>
                 </div>
-                <div class="col">
+                <div className="col">
                   <input
-                    class="rounded font-italic text-dark border border-dark 
+                    className="rounded font-italic text-dark border border-dark 
                     p-2 mb-4"
                     id="editBookingDate"
                     type="date"
@@ -69,10 +69,10 @@ const AddBooking = () => {
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col">
+              <div className="row">
+                <div className="col">
                   <input
-                    class="rounded font-italic text-dark border 
+                    className="rounded font-italic text-dark border 
                     border-dark p-2 mb-4"
                     id="editNoOfPerson"
                     type="text"
@@ -80,9 +80,9 @@ const AddBooking = () => {
                   ></input>
                   <FaPen className="editIcon"></FaPen>
                 </div>
-                <div class="col">
+                <div className="col">
                   <input
-                    class="rounded font-italic text-dark border border-dark p-2"
+                    className="rounded font-italic text-dark border border-dark p-2"
                     type="text"
                     placeholder="Total Price"
                   ></input>
@@ -94,7 +94,7 @@ const AddBooking = () => {
               <button
                 type="button"
                 id="cancelBookingButton"
-                class="mt-3 btn btn-danger border border-dark"
+                className="mt-3 btn btn-danger border border-dark"
               >
                 Cancel Booking
               </button>
