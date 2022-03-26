@@ -1,6 +1,5 @@
 package com.examly.springapp.service;
 
-import com.examly.springapp.entity.Passenger;
 import com.examly.springapp.repository.PassengerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

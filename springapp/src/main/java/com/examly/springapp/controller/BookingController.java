@@ -1,13 +1,11 @@
 package com.examly.springapp.controller;
 
 import com.examly.springapp.entity.Booking;
-import com.examly.springapp.entity.Passenger;
 import com.examly.springapp.service.BookingService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
 
 @RestController
