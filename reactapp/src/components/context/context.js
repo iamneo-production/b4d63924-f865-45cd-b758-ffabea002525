@@ -4,7 +4,7 @@ import Passanger from "../user_components/Passanger";
 const RailContext = React.createContext();
 
 const RailProvider = ({ children }) => {
-  const [trainData, setTrainData] = useState(traindata);
+  const [allVehicleList, setAllVehicleList] = useState(null);
   const [login, setLogin] = useState({
     loginEmail: "",
     loginPassword: "",
@@ -75,9 +75,11 @@ const RailProvider = ({ children }) => {
   };
 
   const filterData = () => {
-    const data = trainData.filter((data) => data.id === currentId);
-    const datatemp = data[0];
-    setVehicleData(datatemp);
+    const data = allVehicleList?.filter((data) => data.id === currentId);
+    if (data) {
+      const datatemp = data[0];
+      setVehicleData(datatemp);
+    }
   };
 
   useEffect(() => {
@@ -88,7 +90,8 @@ const RailProvider = ({ children }) => {
   return (
     <RailContext.Provider
       value={{
-        trainData,
+        allVehicleList,
+        setAllVehicleList,
         vehicleData,
         login,
         currentId,
