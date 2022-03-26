@@ -1,11 +1,9 @@
 package com.examly.springapp.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -29,8 +27,8 @@ public class Booking {
     private Date toDate;
 
     @Basic
-    @Column(name = "number_of_passanger")
-    private int numberOfPassanger;
+    @Column(name = "number_of_passenger")
+    private int numberOfPassenger;
 
     @Basic
     @Column(name = "total_price")
@@ -54,10 +52,10 @@ public class Booking {
     private Set<Passenger> passengers = new HashSet<Passenger>();
 
 
-    public Booking(Date fromDate, Date toDate, int numberOfPassanger, double totalPrice) {
+    public Booking(Date fromDate, Date toDate, int numberOfPassenger, double totalPrice) {
         this.fromDate = fromDate;
         this.toDate = toDate;
-        this.numberOfPassanger = numberOfPassanger;
+        this.numberOfPassenger = numberOfPassenger;
         this.totalPrice = totalPrice;
     }
 }
