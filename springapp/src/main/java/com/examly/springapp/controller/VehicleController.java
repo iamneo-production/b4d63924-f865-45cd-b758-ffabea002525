@@ -21,7 +21,6 @@ public class VehicleController {
     	try {
              vehicleService.addVehicle(vehicle);
         }catch (Exception exception){
-        	System.out.println(exception);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,exception.getMessage());
             
         }
@@ -29,24 +28,19 @@ public class VehicleController {
 
     @PutMapping("/admin/editVehicle/{vehicleId}")
     public Vehicle editVehicle(@PathVariable int vehicleId, @RequestBody Vehicle vehicle){
-        Vehicle editedVehicle;
 		try {
-			editedVehicle = vehicleService.editVehicle(vehicleId, vehicle);
-	        return editedVehicle;
+			return vehicleService.editVehicle(vehicleId, vehicle);
 		} catch (Exception exception) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND,exception.getMessage());
-		
 		}
     }
 
     @DeleteMapping("/admin/deleteVehicle/{vehicleId}")
     public Vehicle deleteVehicle(@PathVariable int vehicleId){
         try {
-			Vehicle deletedVehicle=vehicleService.deleteVehicle(vehicleId);
-			return deletedVehicle;
+			return vehicleService.deleteVehicle(vehicleId);
 		} catch (Exception exception) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND,exception.getMessage());
-		
 		}
     }
     
