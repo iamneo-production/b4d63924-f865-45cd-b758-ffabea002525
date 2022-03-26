@@ -5,15 +5,25 @@ import Traincard from "./Traincard";
 import Searchcomponent from "./Searchcomponent";
 import { RailContext } from "../context/context";
 import Loading from "../Loading";
+import { getAllVehicles } from "../../api/api";
 
 const Dashboard = () => {
-  const { trainData } = useContext(RailContext);
+  const [trainData, setTrainData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const { setAllVehicleList } = useContext(RailContext);
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false);
+      fetchData();
     }, 1000);
+    async function fetchData() {
+      const response = await getAllVehicles("user");
+      console.log(response);
+      if (response?.status === 200) {
+        setTrainData(response.data);
+        setAllVehicleList(response.data);
+      }
+      setIsLoading(false);
+    }
   }, []);
 
   return (
@@ -28,6 +38,11 @@ const Dashboard = () => {
             className="container-fluid bg-user-dashboard py-3"
           >
             <Searchcomponent />
+            {trainData.length === 0 && (
+              <div>
+                <p>No Trains Available</p>
+              </div>
+            )}
             <div className="row">
               {trainData.map((trainItem) => {
                 return <Traincard key={trainItem.id} trainItem={trainItem} />;

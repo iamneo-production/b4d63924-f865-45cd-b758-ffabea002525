@@ -49,7 +49,6 @@ const Signup = () => {
       toast("SignUp failed!", {
         type: "error",
         theme: "colored",
-        position: "bottom-center",
       });
       clearTexts();
       return;
