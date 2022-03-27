@@ -45,6 +45,17 @@ export const POST = async (path, payload) => {
   }
 };
 
+export const PUT = async (path, payload) => {
+  try {
+    const response = await axios.put(`http://localhost:8080/${path}`, payload, {
+      headers: getHeaders(),
+    });
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const DELETE = async (path) => {
   try {
     const response = await axios.delete(`http://localhost:8080/${path}`, {

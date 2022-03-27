@@ -7,6 +7,10 @@ const Navbar = () => {
     <>
       <nav className="navbar navbar-expand-lg navbar-dark nav-bg">
         <div className="container-fluid">
+          <img
+            src="/trainLogo.png"
+            style={{ width: "40px", height: "40px", marginRight: "10px" }}
+          />
           <Link className="navbar-brand" to="/admin/dashboard">
             T-rails
           </Link>
@@ -25,20 +29,20 @@ const Navbar = () => {
             <ul className="navbar-nav mx-auto">
               <li className="nav-item">
                 <Link
-                  to="/admin/addVehicle"
+                  to="/admin/dashboard"
                   className="nav-link active"
                   id="adminAddVehicle"
                 >
-                  Add Vehicle
+                  Dashboard
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  to="/admin/Dashboard"
+                  to="/admin/addVehicle"
                   className="nav-link"
                   id="adminVehicleProfile"
                 >
-                  Vehicle Profile
+                  Add Vehicle
                 </Link>
               </li>
               <li className="nav-item">

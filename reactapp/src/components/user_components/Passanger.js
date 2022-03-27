@@ -5,12 +5,14 @@ const Passanger = ({
   handlePassangerDetails,
   allPassangerDetails,
   noOfPerson,
+  ticketPrice,
 }) => {
   const [passangerDetails, setPassangerDetails] = useState({
     firstName: "",
     lastName: "",
     gender: "",
     age: 0,
+    price: 0,
   });
 
   const handleAddPassenger = () => {
@@ -23,14 +25,15 @@ const Passanger = ({
       lastName: "",
       gender: "",
       age: 0,
+      price: 0,
     });
   };
 
   return (
     <div className="card-body">
-      <h5>Person </h5>
-      <div className="d-flex justify-content-center align-items-center">
-        <div className="col-md-3">
+      <h5>Add Person </h5>
+      <div className="d-flex align-items-center">
+        <div className="col-md-3" style={{ marginRight: "10px" }}>
           <input
             id="firstName"
             onChange={(e) =>
@@ -47,7 +50,7 @@ const Passanger = ({
             aria-label="default input example"
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3" style={{ marginRight: "10px" }}>
           <input
             id="lastName"
             onChange={(e) =>
@@ -64,12 +67,19 @@ const Passanger = ({
             aria-label="default input example"
           />
         </div>
-        <div className="col-md-2">
+        <div className="col-md-2" style={{ marginRight: "10px" }}>
           <input
             id="age"
-            onChange={(e) =>
-              setPassangerDetails({ ...passangerDetails, age: e.target.value })
-            }
+            onChange={(e) => {
+              let price = 0;
+              if (e.target.value >= 60) price = ticketPrice * 0.9;
+              else price = ticketPrice;
+              setPassangerDetails({
+                ...passangerDetails,
+                age: e.target.value,
+                price: price,
+              });
+            }}
             className="form-control"
             type="text"
             value={passangerDetails.age}
@@ -78,7 +88,7 @@ const Passanger = ({
             aria-label="default input example"
           />
         </div>
-        <div className="col-md-2">
+        <div className="col-md-2" style={{ marginRight: "10px" }}>
           <input
             id="gender"
             onChange={(e) =>

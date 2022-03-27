@@ -62,7 +62,7 @@ const Login = () => {
       toast("Invalid Username or Password", {
         type: "error",
         theme: "colored",
-        position: "bottom-center",
+        // position: "bottom-center",
       });
     }
   };

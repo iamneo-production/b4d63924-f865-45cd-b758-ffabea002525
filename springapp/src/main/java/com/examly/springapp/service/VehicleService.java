@@ -28,7 +28,7 @@ public class VehicleService {
     		throw new IllegalStateException("The vehicle "+vehicle.getName() +" already exists");
     	vehicleRepository.save(vehicle);
     }
-    
+
     public Vehicle deleteVehicle(int vehicleId) {
     	Vehicle vehicle = vehicleRepository.findById(vehicleId).orElse(null);
     	if(vehicle == null)
@@ -36,6 +36,11 @@ public class VehicleService {
     	vehicleRepository.delete(vehicle);
     	return vehicle;
     }
+
+	public Vehicle getVehicleById(int vehicleId){
+		Vehicle vehicle = vehicleRepository.findById(vehicleId).orElse(null);
+		return vehicle;
+	}
     
     public Vehicle editVehicle(int vehicleId,Vehicle newVehicle) {
     	Vehicle oldVehicle = vehicleRepository.findById(vehicleId).orElse(null);

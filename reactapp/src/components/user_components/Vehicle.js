@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { RailContext } from "../context/context";
 import Loading from "../Loading";
 import Navbar from "./Navbar";
@@ -7,13 +7,18 @@ import Passanger from "./Passanger";
 import { createBooking } from "../../api/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getVehicleById } from "../../api/api";
 
 const Vehicle = () => {
-  const { vehicleData } = useContext(RailContext);
-
+  const navigate = useNavigate();
+  const params = useParams();
+  const { id } = params;
   const [isLoading, setIsLoading] = useState(true);
   const [person, setPerson] = useState(1);
   const [passangerDetails, setPassangerDetails] = useState([]);
+  const [vehicleData, setVehicleData] = useState([]);
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
   const handlePerson = (e) => {
     if (e.target.value) setPerson(parseInt(e.target.value));
@@ -25,19 +30,36 @@ const Vehicle = () => {
     setPassangerDetails(newData);
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+  useEffect(async () => {
+    await fetchData();
   }, []);
+
+  const fetchData = async () => {
+    const response = await getVehicleById("user", id);
+    console.log(response);
+    if (response?.status === 200) {
+      setVehicleData(response.data);
+      console.log("Success");
+    } else navigate(-1);
+    setIsLoading(false);
+    return;
+  };
+
+  const calcPrice = () => {
+    let price = 0;
+    for (let i = 0; i < passangerDetails.length; i++) {
+      price = price + passangerDetails[i].price;
+    }
+    return price;
+  };
 
   const handleBooking = async (id) => {
     if (passangerDetails.length === person) {
       const obj = {
-        fromDate: new Date(),
-        toDate: new Date(),
-        numberOfPassanger: person,
-        totalPrice: vehicleData.ticketPrice,
+        fromDate: fromDate,
+        toDate: toDate,
+        numberOfPassenger: person,
+        totalPrice: calcPrice(),
         passengers: passangerDetails,
       };
       const response = await createBooking(id, obj);
@@ -62,15 +84,6 @@ const Vehicle = () => {
   };
 
   const renderContent = () => {
-    if (vehicleData === undefined || vehicleData === null) {
-      return (
-        <div className="d-flex justify-content-center align-items-center mt-5">
-          <Link className="btn btn-dark" to="/user/dashboard">
-            Go back
-          </Link>
-        </div>
-      );
-    }
     return (
       <>
         <Navbar />
@@ -80,8 +93,8 @@ const Vehicle = () => {
             <div className="card mt-5" id="dsgrid1">
               <h5 className="card-header text-success">Available</h5>
               <div className="card-body">
-                <h5 className="card-title text-center">{vehicleData.name}</h5>
-                <p className="card-text">Place: {vehicleData.address}</p>
+                <h5 className="card-title text-center">{vehicleData?.name}</h5>
+                <p className="card-text">Place: {vehicleData?.address}</p>
                 <div className="row mb-3">
                   <div className="col-md-4">
                     <span>From :</span>
@@ -89,6 +102,10 @@ const Vehicle = () => {
                       id="fillFromDate"
                       type="date"
                       className="form-control "
+                      value={fromDate}
+                      onChange={(e) => {
+                        setFromDate(e.target.value);
+                      }}
                     />
                   </div>
                   <div className="col-md-4">
@@ -97,6 +114,10 @@ const Vehicle = () => {
                       id="fillToDate"
                       type="date"
                       className="form-control "
+                      value={toDate}
+                      onChange={(e) => {
+                        setToDate(e.target.value);
+                      }}
                     />
                   </div>
                 </div>
@@ -112,13 +133,14 @@ const Vehicle = () => {
                     />
                   </div>
                   <div className="col-md-4">
-                    <p>Price: {vehicleData.ticketPrice} per head</p>
+                    <p>Price: &#8377;{vehicleData?.ticketPrice} per head</p>
+                    <p>Total Price: &#8377;{calcPrice()}</p>
                   </div>
                   <div className="col-md-4">
                     <button
                       className="btn btn-dark"
                       id="bookButton"
-                      onClick={() => handleBooking(vehicleData.id)}
+                      onClick={() => handleBooking(vehicleData?.id)}
                     >
                       Book
                     </button>
@@ -136,13 +158,14 @@ const Vehicle = () => {
                 handlePassangerDetails={handlePassangerDetails}
                 allPassangerDetails={passangerDetails}
                 noOfPerson={person}
+                ticketPrice={vehicleData?.ticketPrice}
               />
             </div>
           </div>
-          {passangerDetails.length > 0 && (
+          {passangerDetails?.length > 0 && (
             <div className="container my-5 ">
               <div className="card">
-                {passangerDetails.map((data, index) => {
+                {passangerDetails?.map((data, index) => {
                   return (
                     <div key={index}>
                       {index === 0 && (
@@ -151,6 +174,7 @@ const Vehicle = () => {
                           <p>LastName</p>
                           <p>Age</p>
                           <p>Gender</p>
+                          <p>Price</p>
                         </div>
                       )}
                       <div className="d-flex justify-content-between px-3">
@@ -158,6 +182,7 @@ const Vehicle = () => {
                         <p>{data.lastName}</p>
                         <p>{data.age}</p>
                         <p>{data.gender}</p>
+                        <p>{data.price}</p>
                       </div>
                     </div>
                   );

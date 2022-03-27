@@ -1,5 +1,5 @@
 import authLogin from "./Auth";
-import { GET, POST, DELETE } from "./index";
+import { GET, POST, DELETE, PUT } from "./index";
 
 const authApiCall = async (path, payload) => {
   try {
@@ -37,5 +37,30 @@ export const getMyBookings = async () => {
 
 export const deleteBooking = async (id) => {
   const response = await DELETE(`user/deleteBooking/${id}`);
+  return response;
+};
+
+export const editBooking = async (id, payload) => {
+  const response = await PUT(`admin/editBooking/${id}`, payload);
+  return response;
+};
+
+export const addVehicle = async (payload) => {
+  const response = await POST("admin/addVehicle", payload);
+  return response;
+};
+
+export const deleteVehicle = async (id) => {
+  const response = await DELETE(`admin/deleteVehicle/${id}`);
+  return response;
+};
+
+export const editVehicle = async (id, payload) => {
+  const response = await PUT(`admin/editVehicle/${id}`, payload);
+  return response;
+};
+
+export const getVehicleById = async (userType, id) => {
+  const response = await GET(`${userType}/getVehicle/${id}`);
   return response;
 };

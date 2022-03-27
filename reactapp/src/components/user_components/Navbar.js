@@ -6,6 +6,10 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark nav-bg">
       <div className="container-fluid">
+        <img
+          src="/trainLogo.png"
+          style={{ width: "40px", height: "40px", marginRight: "10px" }}
+        />
         <Link className="navbar-brand" to="/user/dashboard">
           T-rails
         </Link>
@@ -31,7 +35,7 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link
                 className="nav-link"
                 to="/user/dashboard"
@@ -39,7 +43,7 @@ const Navbar = () => {
               >
                 Dashboard
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <Link
                 className="nav-link"
