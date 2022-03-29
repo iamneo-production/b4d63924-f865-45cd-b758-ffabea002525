@@ -43,6 +43,22 @@ public class VehicleController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND,exception.getMessage());
 		}
     }
-    
 
+    @GetMapping("/admin/getVehicle/{vehicleId}")
+    public Vehicle getVehicleByIdAdmin(@PathVariable int vehicleId){
+        try{
+            return vehicleService.getVehicleById(vehicleId);
+        } catch (Exception exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,exception.getMessage());
+        }
+    }
+
+    @GetMapping("/user/getVehicle/{vehicleId}")
+    public Vehicle getVehicleByIdUser(@PathVariable int vehicleId){
+        try{
+            return vehicleService.getVehicleById(vehicleId);
+        } catch (Exception exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,exception.getMessage());
+        }
+    }
 }

@@ -18,7 +18,7 @@ const Traincard = ({ trainItem }) => {
   } = trainItem;
   return (
     <div className="col-md-4 my-2">
-      <Link to="/admin/editvehicle" className="text-decoration-none">
+      <Link to={`/admin/editvehicle/${id}`} className="text-decoration-none">
         <div className="card" onClick={() => TrainPassangerHandle(id)}>
           <img
             src={imageUrl}

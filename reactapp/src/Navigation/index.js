@@ -22,11 +22,11 @@ const Navigation = () => {
       <Route path="/admin" element={<ProtectedRoutes path="admin" />}>
         <Route index path="dashboard" element={<AdminDashboard />} />
         <Route path="addvehicle" element={<AddVehicle />} />
-        <Route path="editvehicle" element={<EditVehicle />} />
+        <Route path="editvehicle/:id" element={<EditVehicle />} />
       </Route>
       <Route path="/user" element={<ProtectedRoutes path="user" />}>
         <Route index path="dashboard" element={<UserDashboard />} />
-        <Route path="vehicles" element={<UserVehicle />} />
+        <Route path="vehicles/:id" element={<UserVehicle />} />
         <Route path="booking" element={<MyBooking />} />
       </Route>
       <Route path="*" element={<Error />} />

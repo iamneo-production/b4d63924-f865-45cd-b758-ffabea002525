@@ -114,7 +114,7 @@ const MyBooking = () => {
                           id="editNoOfPerson"
                           type="text"
                           placeholder="No Of Person"
-                          value={item.numberOfPassanger}
+                          value={item.numberOfPassenger}
                           readOnly
                         />
                         <FaPen className="editIcon"></FaPen>
