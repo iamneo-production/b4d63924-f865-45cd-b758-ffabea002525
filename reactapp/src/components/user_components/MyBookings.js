@@ -250,7 +250,7 @@ const MyBooking = () => {
                         <div className="card-header text-center text-success">
                           Passanger Details:
                         </div>
-                        <table class="table">
+                        <table className="table">
                           <thead>
                             <tr>
                               <th scope="col">#</th>
