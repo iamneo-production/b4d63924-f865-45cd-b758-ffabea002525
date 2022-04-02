@@ -17,8 +17,24 @@ const Vehicle = () => {
   const [person, setPerson] = useState(1);
   const [passangerDetails, setPassangerDetails] = useState([]);
   const [vehicleData, setVehicleData] = useState([]);
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
+
+  const todayDate = new Date().toISOString().slice(0, 10);
+  const [fromDate, setFromDate] = useState(todayDate);
+  const [toDate, setToDate] = useState(todayDate);
+
+  const maxDate = new Date();
+  maxDate.setDate(maxDate.getDate() + 15).toString();
+
+  function dateToString(num) {
+    return num.toString().padStart(2, "0");
+  }
+  function formatDate(date) {
+    return [
+      date.getFullYear(),
+      dateToString(date.getMonth() + 1),
+      dateToString(date.getDate()),
+    ].join("-");
+  }
 
   const handlePerson = (e) => {
     if (e.target.value) setPerson(parseInt(e.target.value));
@@ -69,6 +85,9 @@ const Vehicle = () => {
           type: "success",
           theme: "dark",
         });
+        setTimeout(() => {
+          navigate(-1);
+        }, 2000);
       } else {
         toast("Failed! try again", {
           type: "error",
@@ -106,6 +125,8 @@ const Vehicle = () => {
                       onChange={(e) => {
                         setFromDate(e.target.value);
                       }}
+                      min={new Date().toISOString().slice(0, 10)}
+                      max={formatDate(maxDate)}
                     />
                   </div>
                   <div className="col-md-4">
@@ -118,6 +139,8 @@ const Vehicle = () => {
                       onChange={(e) => {
                         setToDate(e.target.value);
                       }}
+                      min={new Date().toISOString().slice(0, 10)}
+                      max={formatDate(maxDate)}
                     />
                   </div>
                 </div>
@@ -152,7 +175,7 @@ const Vehicle = () => {
           <div className="container my-5">
             <div className="card">
               <div className="card-header text-center text-success">
-                Add Passanger Details
+                Add Passanger
               </div>
               <Passanger
                 handlePassangerDetails={handlePassangerDetails}
@@ -165,28 +188,35 @@ const Vehicle = () => {
           {passangerDetails?.length > 0 && (
             <div className="container my-5 ">
               <div className="card">
-                {passangerDetails?.map((data, index) => {
-                  return (
-                    <div key={index}>
-                      {index === 0 && (
-                        <div className="d-flex justify-content-between px-3">
-                          <p>FirstName</p>
-                          <p>LastName</p>
-                          <p>Age</p>
-                          <p>Gender</p>
-                          <p>Price</p>
-                        </div>
-                      )}
-                      <div className="d-flex justify-content-between px-3">
-                        <p>{data.firstName}</p>
-                        <p>{data.lastName}</p>
-                        <p>{data.age}</p>
-                        <p>{data.gender}</p>
-                        <p>{data.price}</p>
-                      </div>
-                    </div>
-                  );
-                })}
+                <div className="card-header text-center text-success">
+                  Passanger Details:
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">FirstName</th>
+                      <th scope="col">LastName</th>
+                      <th scope="col">Age</th>
+                      <th scope="col">Gender</th>
+                      <th scope="col">Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {passangerDetails?.map((data, index) => {
+                      return (
+                        <tr>
+                          <th scope="row">{index + 1}</th>
+                          <td>{data.firstName}</td>
+                          <td>{data.lastName}</td>
+                          <td>{data.age}</td>
+                          <td>{data.gender}</td>
+                          <td>{data.price}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
             </div>
           )}
