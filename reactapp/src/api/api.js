@@ -41,7 +41,7 @@ export const deleteBooking = async (id) => {
 };
 
 export const editBooking = async (id, payload) => {
-  const response = await PUT(`admin/editBooking/${id}`, payload);
+  const response = await PUT(`user/editBooking/${id}`, payload);
   return response;
 };
 
