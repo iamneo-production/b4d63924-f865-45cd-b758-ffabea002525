@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Signup = () => {
   const navigate = useNavigate();
 
-  const [usertype, setUserType] = useState("");
+  const [userType, setUserType] = useState("SELECTROLE");
   const [email, setEmail] = useState("");
   const [userName, setUsername] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -36,12 +36,19 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    if (userType === "SELECTROLE") {
+      toast("Select Any Role!", {
+        type: "error",
+        theme: "colored",
+      });
+      return;
+    }
     const obj = {
       email: email,
       password: password,
       name: userName,
       mobileNumber: mobileNumber,
-      userRole: usertype,
+      userRole: userType,
     };
     const response = await signupApi(obj);
     console.log(response);
@@ -82,16 +89,18 @@ const Signup = () => {
             <div className="card-body">
               <form>
                 <div className="mb-2">
-                  <input
-                    id="admin/user"
-                    value={usertype}
+                  <select
                     name="userType"
-                    onChange={(e) => setUserType(e.target.value)}
+                    id="admin/user"
                     className="form-control"
-                    type="text"
                     placeholder="Enter admin/user"
-                    aria-label="default input example"
-                  />
+                    onChange={(e) => setUserType(e.target.value)}
+                    value={userType}
+                  >
+                    <option value="SELECTROLE">--select role --</option>
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="USER">USER</option>
+                  </select>
                 </div>
                 <div className="mb-2">
                   <input

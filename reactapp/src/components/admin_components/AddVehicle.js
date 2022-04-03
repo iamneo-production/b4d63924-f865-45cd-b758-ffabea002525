@@ -97,7 +97,7 @@ export default function AddVehicle() {
           <center>
             <h3>Add Vehicle</h3>
           </center>
-          <form class="needs-validation" noValidate autoComplete="off">
+          <form className="needs-validation" noValidate autoComplete="off">
             <TextField
               id="addName"
               label="Enter Name"

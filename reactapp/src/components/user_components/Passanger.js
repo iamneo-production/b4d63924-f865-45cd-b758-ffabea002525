@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { FcApproval } from "react-icons/fc";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Passanger = ({
   handlePassangerDetails,
@@ -10,15 +12,30 @@ const Passanger = ({
   const [passangerDetails, setPassangerDetails] = useState({
     firstName: "",
     lastName: "",
-    gender: "",
+    gender: "SELECTGENDER",
     age: 0,
     price: 0,
   });
 
   const handleAddPassenger = () => {
-    handlePassangerDetails(passangerDetails);
-    clear();
+    if (
+      passangerDetails.firstName &&
+      passangerDetails.lastName &&
+      passangerDetails.age &&
+      passangerDetails.gender !== "SELECTGENDER"
+    ) {
+      console.log(passangerDetails);
+      handlePassangerDetails(passangerDetails);
+      clear();
+      return;
+    } else {
+      toast("Add all fields", {
+        type: "error",
+        theme: "colored",
+      });
+    }
   };
+
   const clear = () => {
     setPassangerDetails({
       firstName: "",
@@ -31,6 +48,7 @@ const Passanger = ({
 
   return (
     <div className="card-body">
+      <ToastContainer />
       <h5>Add Person </h5>
       <div className="d-flex align-items-center">
         <div className="col-md-3" style={{ marginRight: "10px" }}>
@@ -48,6 +66,7 @@ const Passanger = ({
             name="firstName"
             placeholder="First name"
             aria-label="default input example"
+            required
           />
         </div>
         <div className="col-md-3" style={{ marginRight: "10px" }}>
@@ -65,6 +84,7 @@ const Passanger = ({
             name="lastName"
             placeholder="Last name"
             aria-label="default input example"
+            required
           />
         </div>
         <div className="col-md-2" style={{ marginRight: "10px" }}>
@@ -86,24 +106,28 @@ const Passanger = ({
             placeholder="Age"
             name="age"
             aria-label="default input example"
+            required
           />
         </div>
         <div className="col-md-2" style={{ marginRight: "10px" }}>
-          <input
+          <select
+            name="gender"
             id="gender"
+            className="form-control"
+            placeholder="Gender"
             onChange={(e) =>
               setPassangerDetails({
                 ...passangerDetails,
                 gender: e.target.value,
               })
             }
-            className="form-control"
-            type="text"
             value={passangerDetails.gender}
-            placeholder="Gender"
-            name="gender"
-            aria-label="default input example"
-          />
+            required
+          >
+            <option value="SELECTGENDER">--select gender --</option>
+            <option value="MALE">MALE</option>
+            <option value="FEMALE">FEMALE</option>
+          </select>
         </div>
         <div className="col-md-2">
           <button

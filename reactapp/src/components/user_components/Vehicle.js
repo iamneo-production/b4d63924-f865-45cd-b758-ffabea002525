@@ -8,7 +8,8 @@ import { createBooking } from "../../api/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getVehicleById } from "../../api/api";
-
+import { BsFillInfoCircleFill } from "react-icons/bs";
+import Tooltip from "@material-ui/core/Tooltip";
 const Vehicle = () => {
   const navigate = useNavigate();
   const params = useParams();
@@ -156,8 +157,19 @@ const Vehicle = () => {
                     />
                   </div>
                   <div className="col-md-4">
-                    <p>Price: &#8377;{vehicleData?.ticketPrice} per head</p>
-                    <p>Total Price: &#8377;{calcPrice()}</p>
+                    <p>Price: &#8377;{vehicleData?.ticketPrice} per head </p>
+                    <p>
+                      Total Price: &#8377;{calcPrice()}{" "}
+                      <Tooltip
+                        title="10% discount for senior citizens"
+                        placement="top"
+                        style={{ paddingLeft: 5 }}
+                      >
+                        <span variant="text">
+                          <BsFillInfoCircleFill />
+                        </span>
+                      </Tooltip>
+                    </p>
                   </div>
                   <div className="col-md-4">
                     <button
@@ -191,7 +203,7 @@ const Vehicle = () => {
                 <div className="card-header text-center text-success">
                   Passanger Details:
                 </div>
-                <table class="table">
+                <table className="table">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
