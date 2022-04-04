@@ -1,5 +1,5 @@
 import React from "react";
-import "../index.css";
+import "../../index.css";
 import { FaSearch } from "react-icons/fa";
 
 const Searchcomponent = (props) => {
@@ -8,10 +8,15 @@ const Searchcomponent = (props) => {
     <div className="container">
       <div
         className="input-group mb-3"
-        style={{ display: "flex", alignItems: "center", border: "0px" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          border: "0px",
+          justifyContent: "center",
+        }}
       >
-        <div class="form-group has-search" style={{ width: "100%" }}>
-          <span class="form-control-feedback">
+        <div className="form-group has-search" style={{ width: "80%" }}>
+          <span className="form-control-feedback">
             <FaSearch />
           </span>
           <input
@@ -20,6 +25,7 @@ const Searchcomponent = (props) => {
             placeholder="Type here to search"
             value={value}
             onChange={(e) => onChange(e.target.value)}
+            id="searchButton"
           />
         </div>
       </div>

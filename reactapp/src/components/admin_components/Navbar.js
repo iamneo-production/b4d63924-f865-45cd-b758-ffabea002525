@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark nav-bg">
-        <div className="container-fluid">
+      <nav className="navbar navbar-expand-lg navbar-dark nav-bg bg-dark">
+        <div className="container py-1">
           <img
             src="/trainLogo.png"
             style={{ width: "40px", height: "40px", marginRight: "10px" }}
+            alt="trainLogo"
           />
           <Link className="navbar-brand" to="/admin/dashboard">
             T-rails
@@ -27,11 +28,20 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav mx-auto">
+              <li className="nav-item" style={{ display: "none" }}>
+                <Link
+                  to="/admin/dashboard"
+                  className="nav-link active"
+                  id="homeButton"
+                >
+                  Home
+                </Link>
+              </li>
               <li className="nav-item">
                 <Link
                   to="/admin/dashboard"
                   className="nav-link active"
-                  id="adminAddVehicle"
+                  id="DashBoardButton"
                 >
                   Dashboard
                 </Link>
@@ -40,9 +50,18 @@ const Navbar = () => {
                 <Link
                   to="/admin/addVehicle"
                   className="nav-link"
-                  id="adminVehicleProfile"
+                  id="adminAddVehicle"
                 >
                   Add Vehicle
+                </Link>
+              </li>
+              <li className="nav-item" style={{ display: "none" }}>
+                <Link
+                  to="/admin/addVehicle"
+                  className="nav-link"
+                  id="adminVehicleProfile"
+                >
+                  Vehicle Profile
                 </Link>
               </li>
               <li className="nav-item">

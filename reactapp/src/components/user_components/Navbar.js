@@ -4,11 +4,12 @@ import "../../index.css";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark nav-bg">
-      <div className="container-fluid">
+    <nav className="navbar navbar-expand-lg navbar-dark nav-bg bg-dark">
+      <div className="container py-1">
         <img
           src="/trainLogo.png"
           style={{ width: "40px", height: "40px", marginRight: "10px" }}
+          alt="trainLogo"
         />
         <Link className="navbar-brand" to="/user/dashboard">
           T-rails
@@ -26,7 +27,7 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mx-auto">
-            <li className="nav-item">
+            <li className="nav-item" style={{ display: "none" }}>
               <Link
                 className="nav-link active"
                 id="homeButton"
@@ -35,15 +36,15 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            {/* <li className="nav-item">
+            <li className="nav-item">
               <Link
-                className="nav-link"
+                className="nav-link active"
                 to="/user/dashboard"
                 id="DashBoardButton"
               >
                 Dashboard
               </Link>
-            </li> */}
+            </li>
             <li className="nav-item">
               <Link
                 className="nav-link"

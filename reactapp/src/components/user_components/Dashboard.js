@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
 import Navbar from "./Navbar";
 import "../../index.css";
-import Traincard from "./Traincard";
-import Searchcomponent from "../Searchcomponent";
+import Traincard from "../common/Traincard";
+import Searchcomponent from "../common/Searchcomponent";
 import { RailContext } from "../context/context";
-import Loading from "../Loading";
+import Loading from "../common/Loading";
 import { getAllVehicles } from "../../api/api";
+import { useNavigate } from "react-router-dom";
+import EmptyState from "../common/EmptyState";
 
 const Dashboard = () => {
   const [trainData, setTrainData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [allVehicleList, setAllVehicleList] = useState([]);
   const [input, setInput] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTimeout(() => {
@@ -45,6 +48,10 @@ const Dashboard = () => {
     setTrainData(filtered);
   };
 
+  const navigateToBooking = (id) => {
+    navigate(`/user/vehicles/${id}`);
+  };
+
   return (
     <>
       {isLoading ? (
@@ -52,19 +59,19 @@ const Dashboard = () => {
       ) : (
         <>
           <Navbar />
-          <div
-            id="dashBoard"
-            className="container-fluid bg-user-dashboard py-3"
-          >
+          <div id="dashBoard" className="container bg-user-dashboard py-3">
             <Searchcomponent value={input} onChange={updateInput} />
-            {trainData.length === 0 && (
-              <div>
-                <p>No Trains Available</p>
-              </div>
-            )}
+            {trainData.length === 0 && <EmptyState />}
             <div className="row">
-              {trainData.map((trainItem) => {
-                return <Traincard key={trainItem.id} trainItem={trainItem} />;
+              {trainData.map((trainItem, index) => {
+                return (
+                  <Traincard
+                    key={trainItem.id}
+                    trainItem={trainItem}
+                    navigateToBooking={navigateToBooking}
+                    index={index}
+                  />
+                );
               })}
             </div>
           </div>

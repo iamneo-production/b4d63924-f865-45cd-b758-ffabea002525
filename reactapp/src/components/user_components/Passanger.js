@@ -49,7 +49,6 @@ const Passanger = ({
   return (
     <div className="card-body">
       <ToastContainer />
-      <h5>Add Person </h5>
       <div className="d-flex align-items-center">
         <div className="col-md-3" style={{ marginRight: "10px" }}>
           <input
@@ -131,6 +130,7 @@ const Passanger = ({
         </div>
         <div className="col-md-2">
           <button
+            id="addPassengerButton"
             className="btn btn-success"
             onClick={() => handleAddPassenger()}
             disabled={allPassangerDetails?.length >= noOfPerson}
