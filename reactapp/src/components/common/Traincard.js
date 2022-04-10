@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { RailContext } from "../context/context";
+import React from "react";
 import "../../index.css";
 import { BsArrowRightCircle } from "react-icons/bs";
 

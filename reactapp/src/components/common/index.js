@@ -8,10 +8,8 @@ export default function Index() {
   const { setUser } = useContext(RailContext);
   useEffect(() => {
     const user = JSON.parse(window.localStorage.getItem("user"));
-    console.log(user);
     if (user) {
       setTimeout(() => {
-        console.log(user.userType);
         setUser(user);
         user.userType.toLowerCase() === "admin"
           ? navigate("/admin/dashboard")

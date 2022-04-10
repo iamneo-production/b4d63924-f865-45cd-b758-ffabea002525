@@ -5,7 +5,6 @@ import Loading from "./Loading";
 const Logout = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("Removing local data");
     window.localStorage.removeItem("user");
     setTimeout(() => {
       navigate("/login");

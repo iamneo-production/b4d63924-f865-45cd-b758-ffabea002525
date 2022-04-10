@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import "../../index.css";
 import Traincard from "../common/Traincard";
 import Searchcomponent from "../common/Searchcomponent";
-import { RailContext } from "../context/context";
 import Loading from "../common/Loading";
 import { getAllVehicles } from "../../api/api";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +22,6 @@ const Dashboard = () => {
 
     async function fetchData() {
       const response = await getAllVehicles("user");
-      console.log(response);
       if (response?.status === 200) {
         setTrainData(response.data);
         setAllVehicleList(response.data);

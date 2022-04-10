@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { RailContext } from "../context/context";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Loading from "../common/Loading";
 import Navbar from "./Navbar";
 import Passanger from "./Passanger";
@@ -55,10 +54,8 @@ const Vehicle = () => {
 
   const fetchData = async () => {
     const response = await getVehicleById("user", id);
-    console.log(response);
     if (response?.status === 200) {
       setVehicleData(response.data);
-      console.log("Success");
     } else navigate(-1);
     setTimeout(() => {
       setIsLoading(false);
@@ -84,7 +81,6 @@ const Vehicle = () => {
         passengers: passangerDetails,
       };
       const response = await createBooking(id, obj);
-      console.log(response);
       if (response?.status === 200) {
         toast("Booking success!", {
           type: "success",
