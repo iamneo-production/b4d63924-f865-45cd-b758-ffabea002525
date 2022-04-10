@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { FaPen } from "react-icons/fa";
 import Navbar from "./Navbar";
 import "./MyBooking.css";
-import Loading from "../Loading";
+import Loading from "../common/Loading";
 import { getMyBookings, deleteBooking, editBooking } from "../../api/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import DeletePopup from "../common/DeletePopup";
+import EmptyState from "../common/EmptyState";
 
 const MyBooking = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +46,9 @@ const MyBooking = () => {
       setBookingData(response.data);
     }
   };
-  const cancelBooking = async (id) => {
+  const cancelBooking = async (e, id) => {
+    document.getElementById("closeModal").click();
+    console.log(id);
     const response = await deleteBooking(id);
     console.log(response);
     if (response.status === 200) {
@@ -109,7 +113,7 @@ const MyBooking = () => {
             <h4 className="text-center bg-dark text-white mt-0 mb-5 p-3">
               Booking Details
             </h4>
-            {bookingData.length === 0 && <div>No Train Booked</div>}
+            {bookingData.length === 0 && <EmptyState />}
             {bookingData?.map((item, index) => {
               return (
                 <div
@@ -144,22 +148,30 @@ const MyBooking = () => {
                     <button
                       type="button"
                       style={{
-                        width: 150,
+                        width: 170,
                         justifyContent: "space-between",
                         display: "flex",
                         alignItems: "center",
                       }}
-                      className="mt-3 btn btn-danger border border-dark"
-                      onClick={() => enableEditBooking(item, index)}
+                      className={
+                        enableEdit === index
+                          ? "mt-3 btn btn-info border border-dark"
+                          : "mt-3 btn btn-danger border border-dark"
+                      }
+                      onClick={() => {
+                        enableEdit === index
+                          ? cancelEditing()
+                          : enableEditBooking(item, index);
+                      }}
                     >
-                      Edit Booking
+                      {enableEdit === index ? "Cancel Editing" : "Edit Booking"}
                       <FaPen></FaPen>
                     </button>
                   </div>
                   <div className="space" style={{ marginTop: "20px" }}>
                     <div className="row">
                       <div className="col">
-                        <p style={{ margin: 0 }}>Train Name:</p>
+                        <p style={{ margin: 0, color: "#000" }}>Train Name:</p>
                         <input
                           className="rounded font-italic text-black border border-dark p-2"
                           type="text"
@@ -170,7 +182,7 @@ const MyBooking = () => {
                         />
                       </div>
                       <div className="col">
-                        <p style={{ margin: 0 }}>Train Route:</p>
+                        <p style={{ margin: 0, color: "#000" }}>Train Route:</p>
                         <input
                           className="rounded font-italic text-dark border 
                     border-dark p-2 mb-4"
@@ -184,7 +196,7 @@ const MyBooking = () => {
                     </div>
                     <div className="row">
                       <div className="col">
-                        <p style={{ margin: 0 }}>From Date:</p>
+                        <p style={{ margin: 0, color: "#000" }}>From Date:</p>
                         <input
                           className="rounded font-italic text-dark border 
                     border-dark p-2"
@@ -201,7 +213,7 @@ const MyBooking = () => {
                         />
                       </div>
                       <div className="col">
-                        <p style={{ margin: 0 }}>To Date:</p>
+                        <p style={{ margin: 0, color: "#000" }}>To Date:</p>
                         <input
                           className="rounded font-italic text-dark border border-dark 
                     p-2 mb-4"
@@ -220,7 +232,9 @@ const MyBooking = () => {
 
                     <div className="row">
                       <div className="col">
-                        <p style={{ margin: 0 }}>Number of Passenger:</p>
+                        <p style={{ margin: 0, color: "#000" }}>
+                          Number of Passenger:
+                        </p>
                         <input
                           className="rounded font-italic text-dark border 
                     border-dark p-2 mb-4"
@@ -232,7 +246,7 @@ const MyBooking = () => {
                         />
                       </div>
                       <div className="col">
-                        <p style={{ margin: 0 }}>Total Price:</p>
+                        <p style={{ margin: 0, color: "#000" }}>Total Price:</p>
                         <input
                           className="rounded font-italic text-dark border border-dark p-2"
                           type="text"
@@ -263,7 +277,7 @@ const MyBooking = () => {
                           <tbody>
                             {item.passengers?.map((data, index) => {
                               return (
-                                <tr>
+                                <tr key={index + 1000}>
                                   <th scope="row">{index + 1}</th>
                                   <td>{data.firstName}</td>
                                   <td>{data.lastName}</td>
@@ -286,36 +300,35 @@ const MyBooking = () => {
                       display: "flex",
                     }}
                   >
-                    <button
-                      type="button"
-                      id="cancelBookingButton"
-                      className={
-                        enableEdit === index
-                          ? "mt-3 btn btn-warning border border-dark"
-                          : "mt-3 btn btn-danger border border-dark"
-                      }
-                      onClick={() =>
-                        enableEdit === index
-                          ? cancelEditing()
-                          : cancelBooking(item.id)
-                      }
-                    >
-                      {enableEdit === index
-                        ? "Cancel Editing"
-                        : "Cancel Booking"}
-                    </button>
-                    {enableEdit === index && (
+                    {enableEdit === index ? (
                       <button
                         type="button"
                         id="cancelBookingButton"
-                        className={"mt-3 btn btn-success border border-dark"}
+                        className={
+                          "mt-3 btn btn-success border border-dark px-5"
+                        }
                         onClick={() => saveEditBooking(item)}
                         style={{ marginLeft: 10 }}
                       >
                         Save
                       </button>
+                    ) : (
+                      <button
+                        type="button"
+                        id="cancelBookingButton"
+                        className="mt-3 btn btn-danger border border-dark"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteModal"
+                      >
+                        Cancel Booking
+                      </button>
                     )}
                   </div>
+                  <DeletePopup
+                    onSubmit={cancelBooking}
+                    label="You will not be able to recover this booking"
+                    id={item.id}
+                  />
                 </div>
               );
             })}

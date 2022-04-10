@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import Login from "../components/Login";
-import Signup from "../components/Signup";
+import Login from "../components/common/Login";
+import Signup from "../components/common/Signup";
 import UserVehicle from "../components/user_components/Vehicle";
 import MyBooking from "../components/user_components/MyBookings";
 import AdminDashboard from "../components/admin_components/Dashboard";
@@ -8,9 +8,9 @@ import UserDashboard from "../components/user_components/Dashboard";
 import AddVehicle from "../components/admin_components/AddVehicle";
 import EditVehicle from "../components/admin_components/EditVehicle";
 import ProtectedRoutes from "./ProtectedRoute";
-import Error from "../components/Error";
-import Logout from "../components/Logout";
-import Home from "../components";
+import Error from "../components/common/Error";
+import Logout from "../components/common/Logout";
+import Home from "../components/common";
 
 const Navigation = () => {
   return (

@@ -1,16 +1,16 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./Navbar";
 import "../../index.css";
 import TextField from "@mui/material/TextField";
-import { Container, Paper, Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { useState } from "react";
 import { addVehicle } from "../../api/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "../common/Loading";
 
 export default function AddVehicle() {
-  const paperstyle = { padding: "50px 20px", width: 600, margin: "20px auto" };
   const [name, setName] = useState("");
   const [timing, setTiming] = useState("");
   const [fromTo, setfromTo] = useState("");
@@ -18,6 +18,7 @@ export default function AddVehicle() {
   const [fair, setFair] = useState("");
   const [capacity, setCapacity] = useState("");
   const [description, setDescription] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   let [nameError, setNameError] = useState(false);
   let [timingError, setTimingError] = useState(false);
@@ -27,30 +28,29 @@ export default function AddVehicle() {
   let [capacityError, setCapacityError] = useState(false);
   let [descriptionError, setDescriptionError] = useState(false);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
   const handleClick = async (e) => {
     e.preventDefault();
 
     if (name === "") setNameError(true);
-
+    else setNameError(false);
     if (timing === "") setTimingError(true);
-
+    else setTimingError(false);
     if (fromTo === "") setFromToError(true);
-
+    else setFromToError(false);
     if (imageURL === "") setImageUrlError(true);
-
+    else setImageUrlError(false);
     if (fair === "") setFairError(true);
-
+    else setFairError(false);
     if (capacity === "") setCapacityError(true);
-
+    else setCapacityError(false);
     if (description === "") setDescriptionError(true);
-
-    setNameError("false");
-    setTimingError("false");
-    setFromToError("false");
-    setImageUrlError("false");
-    setFairError("false");
-    setCapacityError("false");
-    setDescriptionError("false");
+    else setDescriptionError(false);
 
     const vehicleDetail = {
       address: fromTo,
@@ -90,121 +90,191 @@ export default function AddVehicle() {
 
   return (
     <>
-      <Navbar />
-      <Container>
-        <ToastContainer />
-        <Paper elevation={7} style={paperstyle}>
-          <center>
-            <h3>Add Vehicle</h3>
-          </center>
-          <form className="needs-validation" noValidate autoComplete="off">
-            <TextField
-              id="addName"
-              label="Enter Name"
-              variant="outlined"
-              fullWidth
-              value={name}
-              error={nameError}
-              onChange={(e) => setName(e.target.value)}
-              required
-              style={{ marginTop: "10px" }}
-            />
-            <br />
-
-            <TextField
-              id="addTiming"
-              label="Enter Available Timing"
-              variant="outlined"
-              fullWidth
-              value={timing}
-              error={timingError}
-              onChange={(e) => setTiming(e.target.value)}
-              required
-              style={{ marginTop: "10px" }}
-            />
-            <br />
-
-            <TextField
-              id="addFromTo"
-              label="Enter the From and To"
-              variant="outlined"
-              fullWidth
-              value={fromTo}
-              error={fromToError}
-              onChange={(e) => setfromTo(e.target.value)}
-              required
-              style={{ marginTop: "10px" }}
-            />
-            <br />
-
-            <TextField
-              id="addImageUrl"
-              label="Enter the Image Url"
-              variant="outlined"
-              fullWidth
-              value={imageURL}
-              error={imageUrlError}
-              onChange={(e) => setImageUrl(e.target.value)}
-              required
-              style={{ marginTop: "10px" }}
-            />
-            <br />
-
-            <TextField
-              id="addPrice"
-              label="Enter the fair per person"
-              variant="outlined"
-              fullWidth
-              value={fair}
-              error={fairError}
-              onChange={(e) => setFair(e.target.value)}
-              required
-              style={{ marginTop: "10px" }}
-            />
-            <br />
-
-            <TextField
-              id="Traincapacity"
-              label="Enter no of capacity"
-              variant="outlined"
-              fullWidth
-              value={capacity}
-              error={capacityError}
-              onChange={(e) => setCapacity(e.target.value)}
-              required
-              style={{ marginTop: "10px" }}
-            />
-            <br />
-
-            <TextField
-              id="addDescription"
-              label="Description about product"
-              variant="outlined"
-              fullWidth
-              value={description}
-              error={descriptionError}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-              style={{ marginTop: "10px" }}
-            />
-            <br />
-
-            <br></br>
-            <center>
-              {" "}
-              <Button
-                variant="contained"
-                id="addButton"
-                color="secondary"
-                onClick={handleClick}
-                style={{ backgroundColor: "#570000" }}
-              >
-                Add
-              </Button>
-            </center>
-          </form>
-        </Paper>
-      </Container>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <Navbar />
+          <ToastContainer />
+          <div
+            className="container my-5 p-5"
+            style={{ backgroundColor: "#fff", borderRadius: 10 }}
+          >
+            <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            ></link>
+            <div className="container">
+              <div className="row">
+                <br></br>
+                <center>
+                  <h3
+                    className="d-flex justify-content-center py-2 mb-5"
+                    style={{ backgroundColor: "#000", color: "#fff" }}
+                  >
+                    Add Vehicle
+                  </h3>
+                </center>
+                <script src="https://kit.fontawesome.com/yourcode.js"></script>
+                <div
+                  className="col-5"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <div
+                    className="card"
+                    style={{
+                      margin: "1px",
+                      float: "left",
+                      borderRadius: "25px",
+                      width: "70%",
+                    }}
+                  >
+                    <img
+                      className="card-img-top"
+                      src={imageURL}
+                      alt="Add correct URL to view preview"
+                      style={{
+                        height: "300px",
+                        borderRadius: "25px 25px 0px 0px",
+                      }}
+                      onErrorCapture={(e) => {
+                        e.target.src =
+                          "https://images.moneycontrol.com/static-mcnews/2021/08/Indian-Railways.jpg?impolicy=website&width=770&height=431";
+                      }}
+                    />
+                    <div
+                      className="card-body"
+                      style={{
+                        backgroundColor: " #293d3d",
+                        borderRadius: "0px 0px 20px 20px",
+                        width: "100%",
+                        minHeight: "65px",
+                      }}
+                    >
+                      <center>
+                        <h5 className="card-title" style={{ color: "white" }}>
+                          {name}
+                        </h5>
+                      </center>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-6">
+                  <form
+                    className="needs-validation"
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      id="addName"
+                      label="Enter Name"
+                      variant="outlined"
+                      fullWidth
+                      value={name}
+                      error={nameError}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                      style={{ marginTop: "10px" }}
+                    />
+                    <br />
+                    <TextField
+                      id="addTiming"
+                      label="Enter Available Timing"
+                      variant="outlined"
+                      fullWidth
+                      value={timing}
+                      error={timingError}
+                      onChange={(e) => setTiming(e.target.value)}
+                      required
+                      style={{ marginTop: "10px" }}
+                    />
+                    <br />
+                    <TextField
+                      id="addFromTo"
+                      label="Enter the From and To"
+                      variant="outlined"
+                      fullWidth
+                      value={fromTo}
+                      error={fromToError}
+                      onChange={(e) => setfromTo(e.target.value)}
+                      required
+                      style={{ marginTop: "10px" }}
+                    />
+                    <br />
+                    <TextField
+                      id="addImageUrl"
+                      label="Enter the Image Url"
+                      variant="outlined"
+                      fullWidth
+                      value={imageURL}
+                      error={imageUrlError}
+                      onChange={(e) => setImageUrl(e.target.value)}
+                      required
+                      style={{ marginTop: "10px" }}
+                    />
+                    <br />
+                    <TextField
+                      id="addPrice"
+                      label="Enter the fair per person"
+                      variant="outlined"
+                      fullWidth
+                      value={fair}
+                      error={fairError}
+                      onChange={(e) => setFair(e.target.value)}
+                      required
+                      style={{ marginTop: "10px" }}
+                    />
+                    <br />
+                    <TextField
+                      id="Traincapacity"
+                      label="Enter no of capacity"
+                      variant="outlined"
+                      fullWidth
+                      value={capacity}
+                      error={capacityError}
+                      onChange={(e) => setCapacity(e.target.value)}
+                      required
+                      style={{ marginTop: "10px" }}
+                    />
+                    <br />
+                    <TextField
+                      id="addDescription"
+                      label="Description about product"
+                      variant="outlined"
+                      fullWidth
+                      value={description}
+                      error={descriptionError}
+                      onChange={(e) => setDescription(e.target.value)}
+                      required
+                      style={{ marginTop: "10px" }}
+                    />
+                    <br />
+                    <br></br>
+                    <center>
+                      <Button
+                        variant="contained"
+                        id="addButton"
+                        color="secondary"
+                        onClick={(e) => handleClick(e)}
+                        style={{
+                          backgroundColor: "#198754",
+                          padding: "8px 50px",
+                        }}
+                      >
+                        Submit
+                      </Button>
+                    </center>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }

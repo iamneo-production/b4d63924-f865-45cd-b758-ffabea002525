@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { RailContext } from "./context/context";
+import { RailContext } from "../context/context";
 import Loading from "./Loading";
 
 export default function Index() {

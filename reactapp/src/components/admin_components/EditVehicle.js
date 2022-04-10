@@ -6,17 +6,16 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@material-ui/core";
 import { RailContext } from "../context/context";
 import { useNavigate, useParams } from "react-router-dom";
-import Loading from "../Loading";
+import Loading from "../common/Loading";
 import { getVehicleById, deleteVehicle, editVehicle } from "../../api/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import DeletePopup from "../common/DeletePopup";
 
 const UpdateVehicle = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { id } = params;
-
-  const paperstyle = { padding: "50px 20px", width: 900, margin: "40px auto" };
 
   const [isLoading, setIsLoading] = useState(true);
   const [name, setName] = useState("");
@@ -45,7 +44,9 @@ const UpdateVehicle = () => {
       setCapacity(vehicleData?.capacity);
       setDescription(vehicleData?.description);
     } else navigate(-1);
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   };
 
   const [nameError, setNameError] = useState(false);
@@ -101,6 +102,8 @@ const UpdateVehicle = () => {
   };
 
   const deleteVeh = async () => {
+    document.getElementById("closeModal").click();
+    console.log("delete");
     const response = await deleteVehicle(id);
     console.log(response);
     if (response?.status === 200) {
@@ -110,7 +113,7 @@ const UpdateVehicle = () => {
       });
       setTimeout(() => {
         navigate(-1);
-      }, 2000);
+      }, 1000);
     } else {
       toast("Failed, Try again", {
         type: "error",
@@ -118,7 +121,6 @@ const UpdateVehicle = () => {
       });
     }
   };
-
   return (
     <>
       {isLoading ? (
@@ -127,99 +129,75 @@ const UpdateVehicle = () => {
         <React.Fragment>
           <Navbar />
           <ToastContainer />
-          <Paper elevation={7} style={paperstyle}>
+          <div
+            className="container my-5 p-5"
+            style={{ backgroundColor: "#fff", borderRadius: 10 }}
+            id="vehicleProfileBody"
+          >
             <link
               rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             ></link>
             <div className="container">
-              <div className="row" style={{ borderRadius: "50px" }}>
+              <div className="row">
                 <br></br>
                 <center>
-                  <h3>Edit Vehicle</h3>
+                  <h3
+                    className="d-flex justify-content-center py-2 mb-5"
+                    style={{ backgroundColor: "#000", color: "#fff" }}
+                    id="editVehicle"
+                  >
+                    Edit Vehicle
+                  </h3>
                 </center>
-                <div className="col-9">
-                  <br></br>
-                </div>
-
                 <script src="https://kit.fontawesome.com/yourcode.js"></script>
-                <div className="col-4">
+                <div
+                  className="col-4"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   <div
                     className="card"
                     style={{
-                      width: "1000",
                       margin: "1px",
                       float: "left",
-                      borderRadius: "25px",
+                      borderRadius: "45px",
+                      width: "80%",
                     }}
+                    id="adminProfileView"
                   >
                     <img
                       className="card-img-top"
-                      src="https://images.newindianexpress.com/uploads/user/imagelibrary/2021/4/12/w900X450/Train.jpg?w=400&dpr=2.6"
+                      src={imageURL}
                       alt="trainImage"
                       style={{
-                        height: "500",
+                        height: "300px",
                         borderRadius: "20px 20px 0px 0px",
+                      }}
+                      onErrorCapture={(e) => {
+                        e.target.src =
+                          "https://images.moneycontrol.com/static-mcnews/2021/08/Indian-Railways.jpg?impolicy=website&width=770&height=431";
                       }}
                     />
                     <div
                       className="card-body"
                       style={{
                         backgroundColor: " #293d3d",
-                        height: "600",
                         borderRadius: "0px 0px 20px 20px",
+                        width: "100%",
                       }}
                     >
-                      <h5 className="card-title" style={{ color: "white" }}>
-                        {name}
-                      </h5>
-                      <p className="card-text" style={{ color: "white" }}>
-                        Address: {fromTo}
-                      </p>
-                      <div style={{ display: "block", float: "right" }}>
-                        <i
-                          className="fa fa-trash-o"
-                          style={{ font: "150px", color: "white" }}
-                          onClick={null}
-                        ></i>
-                      </div>
-                      <p className="card-text" style={{ color: "white" }}>
-                        Available Timing:
-                      </p>
-                      <div style={{ display: "block", float: "right" }}>
-                        <i
-                          className="fa fa-edit"
-                          style={{ font: "150px", color: "white" }}
-                          onClick={null}
-                        ></i>
-                      </div>
-
-                      <p className="card-text" style={{ color: "white" }}>
-                        Price: Rs {fair} per head
-                      </p>
+                      <center>
+                        <h5 className="card-title" style={{ color: "white" }}>
+                          {name}
+                        </h5>
+                      </center>
                     </div>
                   </div>
-                  <center>
-                    <Button
-                      variant="contained"
-                      id="addButton"
-                      color="secondary"
-                      onClick={() => deleteVeh()}
-                      style={{ backgroundColor: "#570000" }}
-                    >
-                      <i
-                        className="fa fa-trash-o"
-                        style={{
-                          font: "150px",
-                          color: "white",
-                          marginRight: "10px",
-                        }}
-                      />
-                      Delete Vehicle
-                    </Button>
-                  </center>
                 </div>
-
                 <div className="col-6">
                   <form
                     className="needs-validation"
@@ -227,7 +205,7 @@ const UpdateVehicle = () => {
                     autoComplete="off"
                   >
                     <TextField
-                      id="addName"
+                      id="editName"
                       label="Enter Name"
                       variant="outlined"
                       fullWidth
@@ -240,7 +218,7 @@ const UpdateVehicle = () => {
                     <br />
 
                     <TextField
-                      id="addTiming"
+                      id="editTiming"
                       label="Enter Available Timing"
                       variant="outlined"
                       fullWidth
@@ -253,7 +231,7 @@ const UpdateVehicle = () => {
                     <br />
 
                     <TextField
-                      id="addFromTo"
+                      id="editFromTo"
                       label="Enter the From and To"
                       variant="outlined"
                       fullWidth
@@ -266,7 +244,7 @@ const UpdateVehicle = () => {
                     <br />
 
                     <TextField
-                      id="addImageUrl"
+                      id="editImageUrl"
                       label="Enter the Image Url"
                       variant="outlined"
                       fullWidth
@@ -279,7 +257,7 @@ const UpdateVehicle = () => {
                     <br />
 
                     <TextField
-                      id="addPrice"
+                      id="editPrice"
                       label="Enter the fair per person"
                       variant="outlined"
                       fullWidth
@@ -292,7 +270,7 @@ const UpdateVehicle = () => {
                     <br />
 
                     <TextField
-                      id="Traincapacity"
+                      id="editCapacity"
                       label="Enter no of capacity"
                       variant="outlined"
                       fullWidth
@@ -305,7 +283,7 @@ const UpdateVehicle = () => {
                     <br />
 
                     <TextField
-                      id="addDescription"
+                      id="editDescription"
                       label="Description about product"
                       variant="outlined"
                       fullWidth
@@ -321,19 +299,46 @@ const UpdateVehicle = () => {
                     <center>
                       <Button
                         variant="contained"
-                        id="addButton"
+                        id="updateButton"
                         color="secondary"
                         onClick={(e) => handleClick(e)}
-                        style={{ backgroundColor: "#570000" }}
+                        style={{ backgroundColor: "#198754" }}
                       >
-                        Submit
+                        Update
                       </Button>
                     </center>
                   </form>
                 </div>
+                <div className="col-2">
+                  <center className="mt-5">
+                    <button
+                      type="button"
+                      id="addButton"
+                      className="mt-3 btn btn-danger border border-dark"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteModal"
+                      style={{ backgroundColor: "#570000" }}
+                    >
+                      <i
+                        className="fa fa-trash-o"
+                        style={{
+                          font: "150px",
+                          color: "white",
+                          marginRight: "10px",
+                        }}
+                      />
+                      Delete Vehicle
+                    </button>
+                  </center>
+                </div>
+                <DeletePopup
+                  onSubmit={deleteVeh}
+                  label="You will not be able to recover this vehicle"
+                  id={id}
+                />
               </div>
             </div>
-          </Paper>
+          </div>
         </React.Fragment>
       )}
     </>

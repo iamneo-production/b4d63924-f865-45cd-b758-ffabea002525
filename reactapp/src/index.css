@@ -29,3 +29,33 @@ body {
   pointer-events: none;
   color: #aaa;
 }
+.rotate {
+  animation: rotation 1s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.available {
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 25px;
+  left: -28px;
+  background-color: black;
+  color: green;
+  padding-left: 25px;
+  padding-right: 20px;
+  overflow: hidden;
+  font-size: 14px;
+  width: 130px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border: "1px solid #000";
+}
