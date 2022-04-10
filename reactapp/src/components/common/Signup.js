@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { RailContext } from "../context/context";
+import React, { useState, useEffect } from "react";
 import { signupApi } from "../../api/api";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
@@ -17,7 +16,6 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const { signup, signupHandle } = useContext(RailContext);
 
   useEffect(() => {
     setTimeout(() => {
@@ -26,7 +24,6 @@ const Signup = () => {
   }, []);
 
   const clearTexts = () => {
-    console.log("Clear");
     setUserType("");
     setEmail("");
     setUsername("");
@@ -37,10 +34,15 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    console.log("Signup");
-    console.log(userType);
     if (userType === "SELECTROLE") {
       toast("Select Any Role!", {
+        type: "error",
+        theme: "colored",
+      });
+      return;
+    }
+    if (password !== confirmPassword) {
+      toast("Password not matched!", {
         type: "error",
         theme: "colored",
       });
@@ -54,7 +56,6 @@ const Signup = () => {
       userRole: userType,
     };
     const response = await signupApi(obj);
-    console.log(response);
     if (!response) {
       toast("SignUp failed!", {
         type: "error",
@@ -72,8 +73,6 @@ const Signup = () => {
       setTimeout(() => {
         navigate("/login");
       }, 1000);
-    } else {
-      console.log(response.data);
     }
   };
 
@@ -172,7 +171,7 @@ const Signup = () => {
                         name="confirmPassword"
                         id="confirmPassword"
                         placeholder="Repeat your password"
-                        value={signup.confirmPassword}
+                        value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                       />
                     </div>

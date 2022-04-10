@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./LoginSignup.css";
 
 const Login = () => {
-  const { user, setUser } = useContext(RailContext);
+  const { setUser } = useContext(RailContext);
   const [loginemail, setLoginEmail] = useState("");
   const [loginpassword, setLoginPassword] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +28,6 @@ const Login = () => {
       password: loginpassword,
     };
     const response = await loginApi(obj);
-    console.log(response);
 
     if (response) {
       const token = response.headers.authorization.replace("Bearer ", "");

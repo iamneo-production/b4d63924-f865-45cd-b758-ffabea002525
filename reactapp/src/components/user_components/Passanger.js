@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FcApproval } from "react-icons/fc";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -24,7 +23,6 @@ const Passanger = ({
       passangerDetails.age &&
       passangerDetails.gender !== "SELECTGENDER"
     ) {
-      console.log(passangerDetails);
       handlePassangerDetails(passangerDetails);
       clear();
       return;

@@ -41,16 +41,13 @@ const MyBooking = () => {
 
   const fetchData = async () => {
     const response = await getMyBookings();
-    console.log(response);
     if (response?.status === 200) {
       setBookingData(response.data);
     }
   };
   const cancelBooking = async (e, id) => {
     document.getElementById("closeModal").click();
-    console.log(id);
     const response = await deleteBooking(id);
-    console.log(response);
     if (response.status === 200) {
       fetchData();
       toast("Booking cancelled!", {
@@ -81,7 +78,6 @@ const MyBooking = () => {
       passengers,
     };
     const response = await editBooking(id, obj);
-    console.log(response);
     if (response?.status === 200) {
       fetchData();
       toast("Booking Edited!", {

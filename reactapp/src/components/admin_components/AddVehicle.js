@@ -3,7 +3,6 @@ import Navbar from "./Navbar";
 import "../../index.css";
 import TextField from "@mui/material/TextField";
 import { Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import { useState } from "react";
 import { addVehicle } from "../../api/api";
 import { ToastContainer, toast } from "react-toastify";
@@ -37,20 +36,34 @@ export default function AddVehicle() {
   const handleClick = async (e) => {
     e.preventDefault();
 
-    if (name === "") setNameError(true);
-    else setNameError(false);
-    if (timing === "") setTimingError(true);
-    else setTimingError(false);
-    if (fromTo === "") setFromToError(true);
-    else setFromToError(false);
-    if (imageURL === "") setImageUrlError(true);
-    else setImageUrlError(false);
-    if (fair === "") setFairError(true);
-    else setFairError(false);
-    if (capacity === "") setCapacityError(true);
-    else setCapacityError(false);
-    if (description === "") setDescriptionError(true);
-    else setDescriptionError(false);
+    if (name === "") {
+      setNameError(true);
+      return;
+    } else setNameError(false);
+    if (timing === "") {
+      setTimingError(true);
+      return;
+    } else setTimingError(false);
+    if (fromTo === "") {
+      setFromToError(true);
+      return;
+    } else setFromToError(false);
+    if (imageURL === "") {
+      setImageUrlError(true);
+      return;
+    } else setImageUrlError(false);
+    if (fair === "") {
+      setFairError(true);
+      return;
+    } else setFairError(false);
+    if (capacity === "") {
+      setCapacityError(true);
+      return;
+    } else setCapacityError(false);
+    if (description === "") {
+      setDescriptionError(true);
+      return;
+    } else setDescriptionError(false);
 
     const vehicleDetail = {
       address: fromTo,
@@ -63,7 +76,6 @@ export default function AddVehicle() {
       time: timing,
     };
     const response = await addVehicle(vehicleDetail);
-    console.log(response);
     if (response?.status === 200) {
       toast("Success!, Vehicle added", {
         type: "success",

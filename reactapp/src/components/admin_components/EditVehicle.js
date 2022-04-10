@@ -1,10 +1,8 @@
-import React, { Component, useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import Navbar from "./Navbar";
-import { Container, Paper } from "@material-ui/core";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Button } from "@material-ui/core";
-import { RailContext } from "../context/context";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../common/Loading";
 import { getVehicleById, deleteVehicle, editVehicle } from "../../api/api";
@@ -32,10 +30,8 @@ const UpdateVehicle = () => {
 
   const fetchData = async () => {
     const response = await getVehicleById("admin", id);
-    console.log(response);
     if (response?.status === 200) {
       const vehicleData = response.data;
-      console.log("Success");
       setName(vehicleData?.name);
       setTiming(vehicleData?.time);
       setfromTo(vehicleData?.address);
@@ -60,20 +56,34 @@ const UpdateVehicle = () => {
   const handleClick = async (e) => {
     e.preventDefault();
 
-    if (name === "") setNameError(true);
-    else setNameError(false);
-    if (timing === "") setTimingError(true);
-    else setTimingError(false);
-    if (fromTo === "") setFromToError(true);
-    else setFromToError(false);
-    if (imageURL === "") setImageUrlError(true);
-    else setImageUrlError(false);
-    if (fair === "") setFairError(true);
-    else setFairError(false);
-    if (capacity === "") setCapacityError(true);
-    else setCapacityError(false);
-    if (description === "") setDescriptionError(true);
-    else setDescriptionError(false);
+    if (name === "") {
+      setNameError(true);
+      return;
+    } else setNameError(false);
+    if (timing === "") {
+      setTimingError(true);
+      return;
+    } else setTimingError(false);
+    if (fromTo === "") {
+      setFromToError(true);
+      return;
+    } else setFromToError(false);
+    if (imageURL === "") {
+      setImageUrlError(true);
+      return;
+    } else setImageUrlError(false);
+    if (fair === "") {
+      setFairError(true);
+      return;
+    } else setFairError(false);
+    if (capacity === "") {
+      setCapacityError(true);
+      return;
+    } else setCapacityError(false);
+    if (description === "") {
+      setDescriptionError(true);
+      return;
+    } else setDescriptionError(false);
 
     const vehicle = {
       name,
@@ -87,7 +97,6 @@ const UpdateVehicle = () => {
     };
 
     const response = await editVehicle(id, vehicle);
-    console.log(response);
     if (response?.status === 200) {
       toast("Success!, Vehicle edited", {
         type: "success",
@@ -103,9 +112,7 @@ const UpdateVehicle = () => {
 
   const deleteVeh = async () => {
     document.getElementById("closeModal").click();
-    console.log("delete");
     const response = await deleteVehicle(id);
-    console.log(response);
     if (response?.status === 200) {
       toast("Success!, Vehicle removed", {
         type: "success",

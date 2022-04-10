@@ -4,7 +4,6 @@ const baseUrl = "http://localhost:8080/";
 
 const getToken = () => {
   let token = JSON.parse(window.localStorage.getItem("user"))?.token;
-  console.log(token);
   return token;
 };
 
