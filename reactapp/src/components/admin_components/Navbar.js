@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../index.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const location = useLocation();
+  const [route, setRoute] = useState(location);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark nav-bg bg-dark">
@@ -31,7 +34,11 @@ const Navbar = () => {
               <li className="nav-item" style={{ display: "none" }}>
                 <Link
                   to="/admin/dashboard"
-                  className="nav-link active"
+                  className={
+                    route.pathname === "/admin/dashboard"
+                      ? "nav-link active"
+                      : "nav-link"
+                  }
                   id="homeButton"
                 >
                   Home
@@ -40,7 +47,11 @@ const Navbar = () => {
               <li className="nav-item">
                 <Link
                   to="/admin/dashboard"
-                  className="nav-link active"
+                  className={
+                    route.pathname === "/admin/dashboard"
+                      ? "nav-link active"
+                      : "nav-link"
+                  }
                   id="DashBoardButton"
                 >
                   Dashboard
@@ -49,7 +60,11 @@ const Navbar = () => {
               <li className="nav-item">
                 <Link
                   to="/admin/addVehicle"
-                  className="nav-link"
+                  className={
+                    route.pathname === "/admin/addVehicle"
+                      ? "nav-link active"
+                      : "nav-link"
+                  }
                   id="adminAddVehicle"
                 >
                   Add Vehicle
@@ -58,7 +73,11 @@ const Navbar = () => {
               <li className="nav-item" style={{ display: "none" }}>
                 <Link
                   to="/admin/addVehicle"
-                  className="nav-link"
+                  className={
+                    route.pathname === "/admin/addVehicle"
+                      ? "nav-link active"
+                      : "nav-link"
+                  }
                   id="adminVehicleProfile"
                 >
                   Vehicle Profile
