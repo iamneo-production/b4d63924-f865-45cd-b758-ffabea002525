@@ -62,7 +62,6 @@ const Login = () => {
       toast("Invalid Username or Password", {
         type: "error",
         theme: "colored",
-        // position: "bottom-center",
       });
     }
   };
@@ -90,7 +89,7 @@ const Login = () => {
                 >
                   <figure>
                     <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                      src="/signin-image.jpg"
                       className="img-fluid"
                       alt="Sample"
                     />

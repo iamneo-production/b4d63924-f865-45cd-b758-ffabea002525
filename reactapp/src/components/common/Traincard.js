@@ -41,8 +41,7 @@ const Traincard = ({ trainItem, navigateToBooking, isAdmin, index }) => {
           alt="trainImg"
           style={{ height: "18rem" }}
           onErrorCapture={(e) => {
-            e.target.src =
-              "https://images.moneycontrol.com/static-mcnews/2021/08/Indian-Railways.jpg?impolicy=website&width=770&height=431";
+            e.target.src = "/defaultTrain.jpg";
           }}
         />
         <div className="card-body">
