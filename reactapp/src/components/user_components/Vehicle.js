@@ -144,6 +144,9 @@ const Vehicle = () => {
                           height: "13rem",
                           borderRadius: "20px 20px 0px 0px",
                         }}
+                        onErrorCapture={(e) => {
+                          e.target.src = "/defaultTrain.jpg";
+                        }}
                       />
                       <div
                         className="card-body"

@@ -17,6 +17,7 @@ const MyBooking = () => {
   );
   const [toDate, setToDate] = useState(new Date().toISOString().slice(0, 10));
   const [enableEdit, setEnableEdit] = useState(null);
+  const [popupIndex, setPopupIndex] = useState(null);
 
   const maxDate = new Date();
   maxDate.setDate(maxDate.getDate() + 15).toString();
@@ -315,6 +316,7 @@ const MyBooking = () => {
                         className="mt-3 btn btn-danger border border-dark"
                         data-bs-toggle="modal"
                         data-bs-target="#deleteModal"
+                        onClick={() => setPopupIndex(item.id)}
                       >
                         Cancel Booking
                       </button>
@@ -323,7 +325,7 @@ const MyBooking = () => {
                   <DeletePopup
                     onSubmit={cancelBooking}
                     label="You will not be able to recover this booking"
-                    id={item.id}
+                    id={popupIndex}
                   />
                 </div>
               );
