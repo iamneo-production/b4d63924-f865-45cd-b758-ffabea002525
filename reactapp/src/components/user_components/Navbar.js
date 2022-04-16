@@ -1,8 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "../../index.css";
 
 const Navbar = () => {
+  const location = useLocation();
+  const [route, setRoute] = useState(location);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark nav-bg bg-dark">
       <div className="container py-1">
@@ -29,7 +32,11 @@ const Navbar = () => {
           <ul className="navbar-nav mx-auto">
             <li className="nav-item" style={{ display: "none" }}>
               <Link
-                className="nav-link active"
+                className={
+                  route.pathname === "/user/dashboard"
+                    ? "nav-link active"
+                    : "nav-link"
+                }
                 id="homeButton"
                 to="/user/dashboard"
               >
@@ -38,7 +45,11 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <Link
-                className="nav-link active"
+                className={
+                  route.pathname === "/user/dashboard"
+                    ? "nav-link active"
+                    : "nav-link"
+                }
                 to="/user/dashboard"
                 id="DashBoardButton"
               >
@@ -47,7 +58,11 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <Link
-                className="nav-link"
+                className={
+                  route.pathname === "/user/booking"
+                    ? "nav-link active"
+                    : "nav-link"
+                }
                 to="/user/booking"
                 id="myBookingButton"
                 href="#"

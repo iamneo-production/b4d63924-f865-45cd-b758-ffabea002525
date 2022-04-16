@@ -11,12 +11,12 @@ const authApiCall = async (path, payload) => {
 };
 
 export const loginApi = async (payload) => {
-  const response = await authApiCall("/login", payload);
+  const response = await authApiCall("login", payload);
   return response;
 };
 
 export const signupApi = async (payload) => {
-  const response = await authApiCall("/signup", payload);
+  const response = await authApiCall("signup", payload);
   return response;
 };
 
