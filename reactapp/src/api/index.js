@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const baseUrl = "http://localhost:8080/";
+// export const baseUrl = "http://localhost:8080/";
+export const baseUrl =
+  "https://8080-dbdaadcadeaccdabccccfbacdbbfafefecadaccc.examlyiopb.examly.io/";
 
 const getToken = () => {
   let token = JSON.parse(window.localStorage.getItem("user"))?.token;
@@ -31,13 +33,9 @@ export const GET = async (path) => {
 
 export const POST = async (path, payload) => {
   try {
-    const response = await axios.post(
-      `http://localhost:8080/${path}`,
-      payload,
-      {
-        headers: getHeaders(),
-      }
-    );
+    const response = await axios.post(baseUrl + path, payload, {
+      headers: getHeaders(),
+    });
     return response;
   } catch (e) {
     console.log(e);
@@ -46,7 +44,7 @@ export const POST = async (path, payload) => {
 
 export const PUT = async (path, payload) => {
   try {
-    const response = await axios.put(`http://localhost:8080/${path}`, payload, {
+    const response = await axios.put(baseUrl + path, payload, {
       headers: getHeaders(),
     });
     return response;
@@ -57,7 +55,7 @@ export const PUT = async (path, payload) => {
 
 export const DELETE = async (path) => {
   try {
-    const response = await axios.delete(`http://localhost:8080/${path}`, {
+    const response = await axios.delete(baseUrl + path, {
       headers: getHeaders(),
     });
     return response;
